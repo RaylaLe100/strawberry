@@ -568,9 +568,10 @@ void AlbumCoverChoiceController::SaveArtManualToSong(Song *song, const QUrl &art
     case Song::Source_SomaFM:
     case Song::Source_Unknown:
       break;
-    case Song::Source_Tidal:
-    case Song::Source_Qobuz:
     case Song::Source_Subsonic:
+    case Song::Source_Tidal:
+    case Song::Source_Spotify:
+    case Song::Source_Qobuz:
       InternetService *service = app_->internet_services()->ServiceBySource(song->source());
       if (!service) break;
       if (service->artists_collection_backend()) {

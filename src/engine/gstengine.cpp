@@ -164,7 +164,7 @@ void GstEngine::StartPreloading(const QUrl &stream_url, const QUrl &original_url
   if (current_pipeline_) {
     current_pipeline_->SetNextUrl(gst_url, original_url, beginning_nanosec, force_stop_at_end ? end_nanosec : 0);
     // Add request to discover the stream
-    if (discoverer_) {
+    if (discoverer_ && original_url.scheme() != "spotify") {
       if (!gst_discoverer_discover_uri_async(discoverer_, gst_url.constData())) {
         qLog(Error) << "Failed to start stream discovery for" << gst_url;
       }
@@ -219,7 +219,7 @@ bool GstEngine::Load(const QUrl &stream_url, const QUrl &original_url, Engine::T
   }
 
   // Add request to discover the stream
-  if (discoverer_) {
+  if (discoverer_ && original_url.scheme() != "spotify") {
     if (!gst_discoverer_discover_uri_async(discoverer_, gst_url.constData())) {
       qLog(Error) << "Failed to start stream discovery for" << gst_url;
     }
@@ -802,6 +802,10 @@ std::shared_ptr<GstEnginePipeline> GstEngine::CreatePipeline() {
   ret->set_proxy_settings(proxy_address_, proxy_authentication_, proxy_user_, proxy_pass_);
   ret->set_channels(channels_enabled_, channels_);
   ret->set_bs2b_enabled(bs2b_enabled_);
+
+#ifdef HAVE_SPOTIFY
+  ret->set_spotify_login(spotify_username_, spotify_password_);
+#endif
 
   ret->AddBufferConsumer(this);
   for (GstBufferConsumer *consumer : buffer_consumers_) {

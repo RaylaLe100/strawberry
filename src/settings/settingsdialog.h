@@ -94,6 +94,7 @@ class SettingsDialog : public QDialog {
     Page_Subsonic,
     Page_Tidal,
     Page_Qobuz,
+    Page_Spotify,
   };
 
   enum Role {
