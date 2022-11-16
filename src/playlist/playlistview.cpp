@@ -61,12 +61,12 @@
 #include <QLinearGradient>
 #include <QScrollBar>
 #include <QtEvents>
-#include <QSettings>
 
 #include "core/application.h"
 #include "core/player.h"
 #include "core/qt_blurimage.h"
 #include "core/song.h"
+#include "core/settings.h"
 #include "playlistmanager.h"
 #include "playlist.h"
 #include "playlistdelegates.h"
@@ -334,7 +334,7 @@ void PlaylistView::SetPlaylist(Playlist *playlist) {
 
 void PlaylistView::LoadHeaderState() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(Playlist::kSettingsGroup);
   if (s.contains("state")) {
     header_state_version_ = s.value("state_version", 0).toInt();
@@ -1212,7 +1212,7 @@ void PlaylistView::PlaylistDestroyed() {
 
 void PlaylistView::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
 
   s.beginGroup(PlaylistSettingsPage::kSettingsGroup);
   bars_enabled_ = s.value("show_bars", true).toBool();
@@ -1327,7 +1327,7 @@ void PlaylistView::SaveSettings() {
 
   if (!header_state_loaded_ || read_only_settings_) return;
 
-  QSettings s;
+  Settings s;
   s.beginGroup(Playlist::kSettingsGroup);
   s.setValue("state_version", header_state_version_);
   s.setValue("state", header_->SaveState());

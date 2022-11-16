@@ -30,7 +30,6 @@
 #include <QRegularExpressionMatch>
 #include <QDir>
 #include <QLocale>
-#include <QSettings>
 #include <QSystemTrayIcon>
 #include <QCheckBox>
 #include <QRadioButton>
@@ -41,6 +40,7 @@
 
 #include "core/iconloader.h"
 #include "core/mainwindow.h"
+#include "core/settings.h"
 #include "settings/settingspage.h"
 #include "behavioursettingspage.h"
 #include "ui_behavioursettingspage.h"
@@ -144,7 +144,7 @@ BehaviourSettingsPage::~BehaviourSettingsPage() {
 
 void BehaviourSettingsPage::Load() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
 #ifndef Q_OS_MACOS
@@ -227,13 +227,13 @@ void BehaviourSettingsPage::Load() {
 
   Init(ui_->layout_behavioursettingspage->parentWidget());
 
-  if (!QSettings().childGroups().contains(kSettingsGroup)) set_changed();
+  if (!Settings().childGroups().contains(kSettingsGroup)) set_changed();
 
 }
 
 void BehaviourSettingsPage::Save() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   s.setValue("showtrayicon", ui_->checkbox_showtrayicon->isChecked());

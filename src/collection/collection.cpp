@@ -25,7 +25,6 @@
 #include <QObject>
 #include <QThread>
 #include <QList>
-#include <QSettings>
 #include <QtConcurrentRun>
 
 #include "core/application.h"
@@ -37,6 +36,7 @@
 #include "core/utilities.h"
 #include "core/song.h"
 #include "core/logging.h"
+#include "core/settings.h"
 #include "collection.h"
 #include "collectionwatcher.h"
 #include "collectionbackend.h"
@@ -182,7 +182,7 @@ void SCollection::ReloadSettings() {
   watcher_->ReloadSettingsAsync();
   model_->ReloadSettings();
 
-  QSettings s;
+  Settings s;
   s.beginGroup(CollectionSettingsPage::kSettingsGroup);
   io_priority_ = static_cast<Utilities::IoPriority>(s.value("io_priority", Utilities::IOPRIO_CLASS_IDLE).toInt());
   thread_priority_ = static_cast<QThread::Priority>(s.value("thread_priority", QThread::Priority::IdlePriority).toInt());

@@ -38,10 +38,10 @@
 #include <QMap>
 #include <QVariant>
 #include <QString>
-#include <QSettings>
 
 #include "core/logging.h"
 #include "core/signalchecker.h"
+#include "core/settings.h"
 #include "transcoder.h"
 
 int Transcoder::JobFinishedEvent::sEventType = -1;
@@ -207,7 +207,7 @@ Transcoder::Transcoder(QObject *parent, const QString &settings_postfix)
     JobFinishedEvent::sEventType = QEvent::registerEventType();
 
   // Initialize some settings for the lamemp3enc element.
-  QSettings s;
+  Settings s;
   s.beginGroup("Transcoder/lamemp3enc" + settings_postfix_);
 
   if (s.value("target").isNull()) {
@@ -566,7 +566,7 @@ QMap<QString, float> Transcoder::GetProgress() const {
 
 void Transcoder::SetElementProperties(const QString &name, GObject *object) {
 
-  QSettings s;
+  Settings s;
   s.beginGroup("Transcoder/" + name + settings_postfix_);
 
   guint properties_count = 0;

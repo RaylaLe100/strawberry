@@ -25,12 +25,12 @@
 #include <QByteArray>
 #include <QString>
 #include <QUrl>
-#include <QSettings>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 
 #include "core/timeconstants.h"
 #include "core/utilities.h"
+#include "core/settings.h"
 #include "settings/playlistsettingspage.h"
 #include "xmlparser.h"
 #include "xspfparser.h"
@@ -145,7 +145,7 @@ void XSPFParser::Save(const SongList &songs, QIODevice *device, const QDir &dir,
   writer.writeAttribute("version", "1");
   writer.writeDefaultNamespace("http://xspf.org/ns/0/");
 
-  QSettings s;
+  Settings s;
   s.beginGroup(PlaylistSettingsPage::kSettingsGroup);
   bool write_metadata = s.value("write_metadata", true).toBool();
   s.endGroup();

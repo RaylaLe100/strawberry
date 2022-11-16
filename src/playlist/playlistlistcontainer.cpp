@@ -38,7 +38,6 @@
 #include <QSize>
 #include <QMenu>
 #include <QAction>
-#include <QSettings>
 #include <QMessageBox>
 #include <QInputDialog>
 #include <QToolButton>
@@ -48,6 +47,7 @@
 #include "core/application.h"
 #include "core/iconloader.h"
 #include "core/player.h"
+#include "core/settings.h"
 #include "playlist.h"
 #include "playlistbackend.h"
 #include "playlistlistview.h"
@@ -146,7 +146,7 @@ void PlaylistListContainer::SetApplication(Application *app) {
 
 void PlaylistListContainer::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(AppearanceSettingsPage::kSettingsGroup);
   int iconsize = s.value(AppearanceSettingsPage::kIconSizeLeftPanelButtons, 22).toInt();
   s.endGroup();

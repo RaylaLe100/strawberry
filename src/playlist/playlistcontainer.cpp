@@ -44,9 +44,9 @@
 #include <QToolButton>
 #include <QUndoStack>
 #include <QtEvents>
-#include <QSettings>
 
 #include "core/iconloader.h"
+#include "core/settings.h"
 #include "playlist.h"
 #include "playlisttabbar.h"
 #include "playlistview.h"
@@ -235,7 +235,7 @@ void PlaylistContainer::SetViewModel(Playlist *playlist, const int scroll_positi
 
 void PlaylistContainer::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(AppearanceSettingsPage::kSettingsGroup);
   int iconsize = s.value(AppearanceSettingsPage::kIconSizePlaylistButtons, 20).toInt();
   s.endGroup();

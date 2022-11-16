@@ -39,7 +39,6 @@
 #include <QJsonValue>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QSettings>
 #include <QSortFilterProxyModel>
 
 #include "core/utilities.h"
@@ -49,6 +48,7 @@
 #include "core/networkaccessmanager.h"
 #include "core/database.h"
 #include "core/song.h"
+#include "core/settings.h"
 #include "collection/collectionbackend.h"
 #include "collection/collectionmodel.h"
 #include "subsonicservice.h"
@@ -125,7 +125,7 @@ void SubsonicService::ShowConfig() {
 
 void SubsonicService::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(SubsonicSettingsPage::kSettingsGroup);
 
   server_url_ = s.value("url").toUrl();

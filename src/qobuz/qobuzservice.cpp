@@ -34,7 +34,6 @@
 #include <QJsonValue>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QSettings>
 #include <QSortFilterProxyModel>
 #include <QSslError>
 
@@ -45,6 +44,7 @@
 #include "core/database.h"
 #include "core/song.h"
 #include "core/utilities.h"
+#include "core/settings.h"
 #include "internet/internetsearchview.h"
 #include "collection/collectionbackend.h"
 #include "collection/collectionmodel.h"
@@ -224,7 +224,7 @@ void QobuzService::ShowConfig() {
 
 void QobuzService::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(QobuzSettingsPage::kSettingsGroup);
 
   app_id_ = s.value("app_id").toString();
@@ -446,7 +446,7 @@ void QobuzService::HandleAuthReply(QNetworkReply *reply) {
   }
   credential_id_ = obj_credential["id"].toInt();
 
-  QSettings s;
+  Settings s;
   s.beginGroup(QobuzSettingsPage::kSettingsGroup);
   s.setValue("user_auth_token", user_auth_token_);
   s.setValue("user_id", user_id_);
@@ -471,7 +471,7 @@ void QobuzService::Logout() {
   user_id_ = -1;
   credential_id_ = -1;
 
-  QSettings s;
+  Settings s;
   s.beginGroup(QobuzSettingsPage::kSettingsGroup);
   s.remove("user_id");
   s.remove("credential_id");

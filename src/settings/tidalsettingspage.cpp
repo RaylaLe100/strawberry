@@ -22,7 +22,6 @@
 #include <QObject>
 #include <QByteArray>
 #include <QString>
-#include <QSettings>
 #include <QCheckBox>
 #include <QComboBox>
 #include <QLineEdit>
@@ -36,6 +35,7 @@
 #include "ui_tidalsettingspage.h"
 #include "core/application.h"
 #include "core/iconloader.h"
+#include "core/settings.h"
 #include "internet/internetservices.h"
 #include "tidal/tidalservice.h"
 #include "widgets/loginstatewidget.h"
@@ -83,7 +83,7 @@ TidalSettingsPage::~TidalSettingsPage() { delete ui_; }
 
 void TidalSettingsPage::Load() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   ui_->enable->setChecked(s.value("enabled", false).toBool());
   ui_->oauth->setChecked(s.value("oauth", true).toBool());
@@ -119,13 +119,13 @@ void TidalSettingsPage::Load() {
 
   Init(ui_->layout_tidalsettingspage->parentWidget());
 
-  if (!QSettings().childGroups().contains(kSettingsGroup)) set_changed();
+  if (!Settings().childGroups().contains(kSettingsGroup)) set_changed();
 
 }
 
 void TidalSettingsPage::Save() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("enabled", ui_->enable->isChecked());
   s.setValue("oauth", ui_->oauth->isChecked());

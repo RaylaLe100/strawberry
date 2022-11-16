@@ -25,6 +25,7 @@ set(SOURCES
   core/networktimeouts.cpp
   core/networkproxyfactory.cpp
   core/qtfslistener.cpp
+  core/settings.cpp
   core/settingsprovider.cpp
   core/signalchecker.cpp
   core/song.cpp
@@ -285,6 +286,7 @@ set(HEADERS
   core/potranslator.h
   core/mimedata.h
   core/stylesheetloader.h
+  core/settings.h
 
   engine/enginebase.h
   engine/devicefinders.h

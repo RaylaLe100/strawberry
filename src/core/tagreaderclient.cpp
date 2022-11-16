@@ -29,13 +29,13 @@
 #include <QByteArray>
 #include <QString>
 #include <QImage>
-#include <QSettings>
 
 #include "core/logging.h"
 #include "core/workerpool.h"
 
 #include "song.h"
 #include "tagreaderclient.h"
+#include "settings.h"
 #include "settings/collectionsettingspage.h"
 
 #define DataCommaSizeFromQString(x) (x).toUtf8().constData(), (x).toUtf8().length()
@@ -48,7 +48,7 @@ TagReaderClient::TagReaderClient(QObject *parent) : QObject(parent), worker_pool
   sInstance = this;
   original_thread_ = thread();
 
-  QSettings s;
+  Settings s;
   s.beginGroup(CollectionSettingsPage::kSettingsGroup);
   int workers = s.value("tagreader_workers", qBound(1, QThread::idealThreadCount() / 2, 4)).toInt();
   s.endGroup();

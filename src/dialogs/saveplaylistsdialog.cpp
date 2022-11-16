@@ -20,7 +20,6 @@
 #include <QDialog>
 #include <QString>
 #include <QDir>
-#include <QSettings>
 #include <QFileDialog>
 #include <QDialogButtonBox>
 #include <QPushButton>
@@ -29,13 +28,14 @@
 #include "saveplaylistsdialog.h"
 #include "ui_saveplaylistsdialog.h"
 
+#include "core/settings.h"
 #include "playlist/playlist.h"
 
 SavePlaylistsDialog::SavePlaylistsDialog(const QStringList &types, const QString &default_extension) : ui_(new Ui_SavePlaylistsDialog) {
 
   ui_->setupUi(this);
 
-  QSettings s;
+  Settings s;
   s.beginGroup(Playlist::kSettingsGroup);
   QString last_save_path = s.value("last_save_all_path", QDir::homePath()).toString();
   QString last_save_extension = s.value("last_save_all_extension", default_extension).toString();
@@ -79,7 +79,7 @@ void SavePlaylistsDialog::accept() {
     return;
   }
 
-  QSettings s;
+  Settings s;
   s.beginGroup(Playlist::kSettingsGroup);
   s.setValue("last_save_all_path", path);
   s.setValue("last_save_all_extension", ui_->combobox_type->currentText());

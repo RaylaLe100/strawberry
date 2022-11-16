@@ -27,11 +27,11 @@
 #include <memory>
 
 #include <QObject>
-#include <QSettings>
 #include <QMap>
 #include <QString>
 #include <QKeySequence>
 
+#include "core/settings.h"
 #include "globalshortcuts/globalshortcutsmanager.h"
 #include "settingspage.h"
 

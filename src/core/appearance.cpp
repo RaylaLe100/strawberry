@@ -24,9 +24,9 @@
 #include <QObject>
 #include <QPalette>
 #include <QColor>
-#include <QSettings>
 
 #include "appearance.h"
+#include "settings.h"
 #include "settings/appearancesettingspage.h"
 
 const QPalette Appearance::kDefaultPalette = QPalette();
@@ -35,7 +35,7 @@ Appearance::Appearance(QObject *parent) : QObject(parent) {
 
   QPalette p = QApplication::palette();
 
-  QSettings s;
+  Settings s;
   s.beginGroup(AppearanceSettingsPage::kSettingsGroup);
   background_color_ = s.value(AppearanceSettingsPage::kBackgroundColor, p.color(QPalette::WindowText)).value<QColor>();
   foreground_color_ = s.value(AppearanceSettingsPage::kForegroundColor, p.color(QPalette::Window)).value<QColor>();
@@ -45,7 +45,7 @@ Appearance::Appearance(QObject *parent) : QObject(parent) {
 
 void Appearance::LoadUserTheme() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(AppearanceSettingsPage::kSettingsGroup);
   bool use_a_custom_color_set = s.value(AppearanceSettingsPage::kUseCustomColorSet).toBool();
   s.endGroup();

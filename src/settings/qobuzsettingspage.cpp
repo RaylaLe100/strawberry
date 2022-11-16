@@ -22,7 +22,6 @@
 #include <QObject>
 #include <QByteArray>
 #include <QString>
-#include <QSettings>
 #include <QMessageBox>
 #include <QCheckBox>
 #include <QComboBox>
@@ -36,6 +35,7 @@
 #include "ui_qobuzsettingspage.h"
 #include "core/application.h"
 #include "core/iconloader.h"
+#include "core/settings.h"
 #include "widgets/loginstatewidget.h"
 #include "internet/internetservices.h"
 #include "qobuz/qobuzservice.h"
@@ -71,7 +71,7 @@ QobuzSettingsPage::~QobuzSettingsPage() { delete ui_; }
 
 void QobuzSettingsPage::Load() {
 
-  QSettings s;
+  Settings s;
   if (!s.contains(kSettingsGroup)) set_changed();
 
   s.beginGroup(kSettingsGroup);
@@ -98,13 +98,13 @@ void QobuzSettingsPage::Load() {
 
   Init(ui_->layout_qobuzsettingspage->parentWidget());
 
-  if (!QSettings().childGroups().contains(kSettingsGroup)) set_changed();
+  if (!Settings().childGroups().contains(kSettingsGroup)) set_changed();
 
 }
 
 void QobuzSettingsPage::Save() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("enabled", ui_->enable->isChecked());
   s.setValue("app_id", ui_->app_id->text());

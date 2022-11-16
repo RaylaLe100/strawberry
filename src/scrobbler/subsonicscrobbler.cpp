@@ -53,7 +53,7 @@ SubsonicScrobbler::SubsonicScrobbler(Application *app, QObject *parent)
 
 void SubsonicScrobbler::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(SubsonicSettingsPage::kSettingsGroup);
   enabled_ = s.value("serversidescrobbling", false).toBool();
   s.endGroup();

@@ -23,7 +23,8 @@
 #include <QWidget>
 #include <QString>
 #include <QSlider>
-#include <QSettings>
+
+#include "core/settings.h"
 
 #include "transcoderoptionsinterface.h"
 #include "transcoderoptionsflac.h"
@@ -41,7 +42,7 @@ TranscoderOptionsFLAC::~TranscoderOptionsFLAC() {
 
 void TranscoderOptionsFLAC::Load() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup + settings_postfix_);
   ui_->quality->setValue(s.value("quality", 5).toInt());
   s.endGroup();
@@ -50,7 +51,7 @@ void TranscoderOptionsFLAC::Load() {
 
 void TranscoderOptionsFLAC::Save() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup + settings_postfix_);
   s.setValue("quality", ui_->quality->value());
   s.endGroup();

@@ -34,10 +34,10 @@
 #include <QLineEdit>
 #include <QTextEdit>
 #include <QFontComboBox>
-#include <QSettings>
 
 #include "core/iconloader.h"
 #include "core/mainwindow.h"
+#include "core/settings.h"
 #include "settingspage.h"
 #include "settingsdialog.h"
 #include "contextsettingspage.h"
@@ -129,7 +129,7 @@ ContextSettingsPage::~ContextSettingsPage() { delete ui_; }
 
 void ContextSettingsPage::Load() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   ui_->context_custom_text1->setText(s.value(kSettingsTitleFmt, "%title% - %artist%").toString());
@@ -161,13 +161,13 @@ void ContextSettingsPage::Load() {
 
   Init(ui_->layout_contextsettingspage->parentWidget());
 
-  if (!QSettings().childGroups().contains(kSettingsGroup)) set_changed();
+  if (!Settings().childGroups().contains(kSettingsGroup)) set_changed();
 
 }
 
 void ContextSettingsPage::Save() {
 
-  QSettings s;
+  Settings s;
 
   s.beginGroup(kSettingsGroup);
   s.setValue(kSettingsTitleFmt, ui_->context_custom_text1->text());

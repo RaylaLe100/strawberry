@@ -54,12 +54,12 @@
 #include <QToolButton>
 #include <QShowEvent>
 #include <QCloseEvent>
-#include <QSettings>
 
 #include "core/iconloader.h"
 #include "core/musicstorage.h"
 #include "core/tagreaderclient.h"
 #include "core/utilities.h"
+#include "core/settings.h"
 #include "widgets/freespacebar.h"
 #include "widgets/linetextedit.h"
 #include "collection/collectionbackend.h"
@@ -211,7 +211,7 @@ void OrganizeDialog::LoadGeometry() {
     AdjustSize();
   }
   else {
-    QSettings s;
+    Settings s;
     s.beginGroup(kSettingsGroup);
     if (s.contains("geometry")) {
       restoreGeometry(s.value("geometry").toByteArray());
@@ -239,7 +239,7 @@ void OrganizeDialog::LoadGeometry() {
 void OrganizeDialog::SaveGeometry() {
 
   if (parentwindow_) {
-    QSettings s;
+    Settings s;
     s.beginGroup(kSettingsGroup);
     s.setValue("geometry", saveGeometry());
     s.endGroup();
@@ -298,7 +298,7 @@ void OrganizeDialog::RestoreDefaults() {
 
 void OrganizeDialog::LoadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   ui_->naming->setPlainText(s.value("format", kDefaultFormat).toString());
   ui_->remove_problematic->setChecked(s.value("remove_problematic", true).toBool());
@@ -324,7 +324,7 @@ void OrganizeDialog::LoadSettings() {
 
 void OrganizeDialog::SaveSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("format", ui_->naming->toPlainText());
   s.setValue("remove_problematic", ui_->remove_problematic->isChecked());

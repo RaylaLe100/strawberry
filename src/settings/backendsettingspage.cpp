@@ -21,7 +21,6 @@
 
 #include <QtGlobal>
 #include <QWidget>
-#include <QSettings>
 #include <QMetaType>
 #include <QVariant>
 #include <QString>
@@ -43,6 +42,7 @@
 #include "core/iconloader.h"
 #include "core/player.h"
 #include "core/logging.h"
+#include "core/settings.h"
 #include "engine/engine_fwd.h"
 #include "engine/enginebase.h"
 #include "engine/devicefinders.h"
@@ -111,7 +111,7 @@ void BackendSettingsPage::Load() {
   configloaded_ = false;
   engineloaded_ = false;
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   Engine::EngineType enginetype = Engine::EngineTypeFromName(s.value("engine", EngineName(Engine::None)).toString());
@@ -207,7 +207,7 @@ void BackendSettingsPage::Load() {
   RgFallbackGainChanged(ui_->stickyslider_replaygainfallbackgain->value());
 
   Init(ui_->layout_backendsettingspage->parentWidget());
-  if (!QSettings().childGroups().contains(kSettingsGroup)) set_changed();
+  if (!Settings().childGroups().contains(kSettingsGroup)) set_changed();
 
   // Check if engine, output or device is set to a different setting than the configured to force saving settings.
 
@@ -455,7 +455,7 @@ void BackendSettingsPage::Save() {
   else if (ui_->combobox_device->currentText() == kOutputCustom) device_value = ui_->lineedit_device->text();
   else device_value = ui_->combobox_device->itemData(ui_->combobox_device->currentIndex()).value<QVariant>();
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   s.setValue("engine", EngineName(enginetype));

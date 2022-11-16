@@ -35,7 +35,6 @@
 #include <QTimer>
 #include <QCryptographicHash>
 #include <QMessageBox>
-#include <QSettings>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QJsonDocument>
@@ -49,6 +48,7 @@
 #include "core/song.h"
 #include "core/timeconstants.h"
 #include "core/logging.h"
+#include "core/settings.h"
 #include "internet/localredirectserver.h"
 #include "settings/scrobblersettingspage.h"
 
@@ -103,7 +103,7 @@ ScrobblingAPI20::~ScrobblingAPI20() {
 
 void ScrobblingAPI20::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
 
   s.beginGroup(settings_group_);
   enabled_ = s.value("enabled", false).toBool();
@@ -118,7 +118,7 @@ void ScrobblingAPI20::ReloadSettings() {
 
 void ScrobblingAPI20::LoadSession() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(settings_group_);
   subscriber_ = s.value("subscriber", false).toBool();
   username_ = s.value("username").toString();
@@ -133,7 +133,7 @@ void ScrobblingAPI20::Logout() {
   username_.clear();
   session_key_.clear();
 
-  QSettings settings;
+  Settings settings;
   settings.beginGroup(settings_group_);
   settings.remove("subscriber");
   settings.remove("username");
@@ -333,7 +333,7 @@ void ScrobblingAPI20::AuthenticateReplyFinished(QNetworkReply *reply) {
   username_ = json_obj["name"].toString();
   session_key_ = json_obj["key"].toString();
 
-  QSettings s;
+  Settings s;
   s.beginGroup(settings_group_);
   s.setValue("subscriber", subscriber_);
   s.setValue("username", username_);

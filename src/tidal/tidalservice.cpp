@@ -38,7 +38,6 @@
 #include <QJsonValue>
 #include <QJsonDocument>
 #include <QJsonObject>
-#include <QSettings>
 #include <QSortFilterProxyModel>
 
 #include "core/application.h"
@@ -49,6 +48,7 @@
 #include "core/song.h"
 #include "core/utilities.h"
 #include "core/timeconstants.h"
+#include "core/settings.h"
 #include "internet/internetsearchview.h"
 #include "collection/collectionbackend.h"
 #include "collection/collectionmodel.h"
@@ -246,7 +246,7 @@ void TidalService::ShowConfig() {
 
 void TidalService::LoadSession() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(TidalSettingsPage::kSettingsGroup);
   user_id_ = s.value("user_id").toInt();
   country_code_ = s.value("country_code", "US").toString();
@@ -272,7 +272,7 @@ void TidalService::LoadSession() {
 
 void TidalService::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(TidalSettingsPage::kSettingsGroup);
 
   enabled_ = s.value("enabled", false).toBool();
@@ -346,7 +346,7 @@ void TidalService::AuthorizationUrlReceived(const QUrl &url) {
     login_time_ = QDateTime::currentDateTime().toSecsSinceEpoch();
     session_id_.clear();
 
-    QSettings s;
+    Settings s;
     s.beginGroup(TidalSettingsPage::kSettingsGroup);
     s.setValue("access_token", access_token_);
     s.setValue("refresh_token", refresh_token_);
@@ -508,7 +508,7 @@ void TidalService::AccessTokenRequestFinished(QNetworkReply *reply) {
 
   session_id_.clear();
 
-  QSettings s;
+  Settings s;
   s.beginGroup(TidalSettingsPage::kSettingsGroup);
   s.setValue("access_token", access_token_);
   s.setValue("refresh_token", refresh_token_);
@@ -650,7 +650,7 @@ void TidalService::HandleAuthReply(QNetworkReply *reply) {
   access_token_.clear();
   refresh_token_.clear();
 
-  QSettings s;
+  Settings s;
   s.beginGroup(TidalSettingsPage::kSettingsGroup);
   s.remove("access_token");
   s.remove("refresh_token");
@@ -680,7 +680,7 @@ void TidalService::Logout() {
   expires_in_ = 0;
   login_time_ = 0;
 
-  QSettings s;
+  Settings s;
   s.beginGroup(TidalSettingsPage::kSettingsGroup);
   s.remove("user_id");
   s.remove("country_code");

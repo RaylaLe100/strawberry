@@ -60,7 +60,6 @@
 #include <QShortcut>
 #include <QMessageBox>
 #include <QtEvents>
-#include <QSettings>
 #include <QColor>
 #include <QFrame>
 #include <QItemSelectionModel>
@@ -82,6 +81,7 @@
 #include "utilities.h"
 #include "timeconstants.h"
 #include "commandlineoptions.h"
+#include "settings.h"
 #include "mimedata.h"
 #include "iconloader.h"
 #include "taskmanager.h"
@@ -948,7 +948,7 @@ MainWindow::MainWindow(Application *app, std::shared_ptr<SystemTrayIcon> tray_ic
 #ifdef Q_OS_MACOS  // Always show the mainwindow on startup for macOS
   show();
 #else
-  QSettings s;
+  Settings s;
   s.beginGroup(BehaviourSettingsPage::kSettingsGroup);
   BehaviourSettingsPage::StartupBehaviour behaviour = BehaviourSettingsPage::StartupBehaviour(s.value("startupbehaviour", BehaviourSettingsPage::Startup_Remember).toInt());
   s.endGroup();
@@ -1052,7 +1052,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
 
 #ifndef Q_OS_MACOS
   s.beginGroup(BehaviourSettingsPage::kSettingsGroup);
@@ -1437,7 +1437,7 @@ void MainWindow::SaveGeometry() {
 
 void MainWindow::SavePlaybackStatus() {
 
-  QSettings s;
+  Settings s;
 
   s.beginGroup(Player::kSettingsGroup);
   s.setValue("playback_state", app_->player()->GetState());
@@ -1456,7 +1456,7 @@ void MainWindow::SavePlaybackStatus() {
 
 void MainWindow::LoadPlaybackStatus() {
 
-  QSettings s;
+  Settings s;
 
   s.beginGroup(BehaviourSettingsPage::kSettingsGroup);
   bool resume_playback = s.value("resumeplayback", false).toBool();
@@ -1480,7 +1480,7 @@ void MainWindow::ResumePlayback() {
 
   qLog(Debug) << "Resuming playback";
 
-  QSettings s;
+  Settings s;
   s.beginGroup(Player::kSettingsGroup);
   Engine::State playback_state = static_cast<Engine::State>(s.value("playback_state", Engine::Empty).toInt());
   int playback_playlist = s.value("playback_playlist", -1).toInt();

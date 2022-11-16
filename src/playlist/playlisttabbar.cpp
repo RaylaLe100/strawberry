@@ -41,11 +41,11 @@
 #include <QCheckBox>
 #include <QDialogButtonBox>
 #include <QtEvents>
-#include <QSettings>
 
 #include "core/iconloader.h"
 #include "core/logging.h"
 #include "core/mimedata.h"
+#include "core/settings.h"
 #include "widgets/favoritewidget.h"
 #include "widgets/renametablineedit.h"
 #include "playlist.h"
@@ -216,7 +216,7 @@ void PlaylistTabBar::CloseSlot() {
 
   const int playlist_id = tabData(menu_index_).toInt();
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   const bool ask_for_delete = s.value("warn_close_playlist", true).toBool();

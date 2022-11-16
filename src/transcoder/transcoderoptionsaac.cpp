@@ -24,7 +24,8 @@
 #include <QCheckBox>
 #include <QComboBox>
 #include <QSlider>
-#include <QSettings>
+
+#include "core/settings.h"
 
 #include "transcoderoptionsinterface.h"
 #include "transcoderoptionsaac.h"
@@ -42,7 +43,7 @@ TranscoderOptionsAAC::~TranscoderOptionsAAC() {
 
 void TranscoderOptionsAAC::Load() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup + settings_postfix_);
   ui_->bitrate_slider->setValue(s.value("bitrate", 320000).toInt() / 1000);
   ui_->profile->setCurrentIndex(s.value("profile", 2).toInt() - 1);
@@ -55,7 +56,7 @@ void TranscoderOptionsAAC::Load() {
 
 void TranscoderOptionsAAC::Save() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup + settings_postfix_);
   s.setValue("bitrate", ui_->bitrate_slider->value() * 1000);
   s.setValue("profile", ui_->profile->currentIndex() + 1);

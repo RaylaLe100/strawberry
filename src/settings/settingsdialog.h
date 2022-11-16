@@ -32,8 +32,8 @@
 #include <QMap>
 #include <QSize>
 #include <QString>
-#include <QSettings>
 
+#include "core/settings.h"
 #include "engine/engine_fwd.h"
 #include "osd/osdbase.h"
 

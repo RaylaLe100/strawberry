@@ -32,10 +32,10 @@
 #include <QDataStream>
 #include <QKeySequence>
 #include <QPushButton>
-#include <QSettings>
 
 #include "core/logging.h"
 #include "core/iconloader.h"
+#include "core/settings.h"
 #include "collectionmodel.h"
 #include "savedgroupingmanager.h"
 #include "ui_savedgroupingmanager.h"
@@ -156,7 +156,7 @@ QString SavedGroupingManager::GroupByToString(const CollectionModel::GroupBy g) 
 void SavedGroupingManager::UpdateModel() {
 
   model_->setRowCount(0);  // don't use clear, it deletes headers
-  QSettings s;
+  Settings s;
   s.beginGroup(saved_groupings_settings_group_);
   int version = s.value("version").toInt();
   if (version == 1) {
@@ -191,7 +191,7 @@ void SavedGroupingManager::UpdateModel() {
 void SavedGroupingManager::Remove() {
 
   if (ui_->list->selectionModel()->hasSelection()) {
-    QSettings s;
+    Settings s;
     s.beginGroup(saved_groupings_settings_group_);
     for (const QModelIndex &idx : ui_->list->selectionModel()->selectedRows()) {
       if (idx.isValid()) {

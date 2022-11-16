@@ -23,7 +23,8 @@
 #include <QWidget>
 #include <QString>
 #include <QSlider>
-#include <QSettings>
+
+#include "core/settings.h"
 
 #include "transcoderoptionsinterface.h"
 #include "transcoderoptionsopus.h"
@@ -43,7 +44,7 @@ TranscoderOptionsOpus::~TranscoderOptionsOpus() {
 
 void TranscoderOptionsOpus::Load() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup + settings_postfix_);
   ui_->bitrate_slider->setValue(s.value("bitrate", 320000).toInt() / 1000);
   s.endGroup();
@@ -52,7 +53,7 @@ void TranscoderOptionsOpus::Load() {
 
 void TranscoderOptionsOpus::Save() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup + settings_postfix_);
   s.setValue("bitrate", ui_->bitrate_slider->value() * 1000);
   s.endGroup();

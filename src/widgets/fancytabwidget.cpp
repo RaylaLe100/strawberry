@@ -49,7 +49,6 @@
 #include <QMenu>
 #include <QAction>
 #include <QActionGroup>
-#include <QSettings>
 #include <QPixmapCache>
 #include <QLayout>
 #include <QtEvents>
@@ -61,6 +60,7 @@
 
 #include "fancytabwidget.h"
 #include "core/stylehelper.h"
+#include "core/settings.h"
 #include "settings/appearancesettingspage.h"
 
 using namespace std::chrono_literals;
@@ -476,7 +476,7 @@ FancyTabWidget::~FancyTabWidget() {
 
 void FancyTabWidget::Load(const QString &kSettingsGroup) {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   QMultiMap <int, TabData*> tabs;
   for (TabData *tab : std::as_const(tabs_)) {
@@ -501,7 +501,7 @@ int FancyTabWidget::insertTab(const int idx, QWidget *page, const QIcon &icon, c
 
 void FancyTabWidget::SaveSettings(const QString &kSettingsGroup) {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   s.setValue("tab_mode", mode_);
@@ -524,7 +524,7 @@ void FancyTabWidget::SaveSettings(const QString &kSettingsGroup) {
 
 void FancyTabWidget::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(AppearanceSettingsPage::kSettingsGroup);
   bg_color_system_ = s.value(AppearanceSettingsPage::kTabBarSystemColor, false).toBool();
   bg_gradient_ = s.value(AppearanceSettingsPage::kTabBarGradient, true).toBool();

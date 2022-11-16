@@ -22,7 +22,6 @@
 
 #include <QObject>
 #include <QMessageBox>
-#include <QSettings>
 #include <QCheckBox>
 #include <QLabel>
 #include <QLineEdit>
@@ -34,6 +33,7 @@
 #include "core/application.h"
 #include "core/iconloader.h"
 #include "core/song.h"
+#include "core/settings.h"
 #include "widgets/loginstatewidget.h"
 
 #include "scrobbler/audioscrobbler.h"
@@ -88,7 +88,7 @@ ScrobblerSettingsPage::~ScrobblerSettingsPage() { delete ui_; }
 
 void ScrobblerSettingsPage::Load() {
 
-  QSettings s;
+  Settings s;
   if (!s.contains(kSettingsGroup)) set_changed();
 
   ui_->checkbox_enable->setChecked(scrobbler_->IsEnabled());
@@ -124,13 +124,13 @@ void ScrobblerSettingsPage::Load() {
 
   Init(ui_->layout_scrobblersettingspage->parentWidget());
 
-  if (!QSettings().childGroups().contains(kSettingsGroup)) set_changed();
+  if (!Settings().childGroups().contains(kSettingsGroup)) set_changed();
 
 }
 
 void ScrobblerSettingsPage::Save() {
 
-  QSettings s;
+  Settings s;
 
   s.beginGroup(kSettingsGroup);
   s.setValue("enabled", ui_->checkbox_enable->isChecked());

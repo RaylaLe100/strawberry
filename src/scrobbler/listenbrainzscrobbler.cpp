@@ -32,7 +32,6 @@
 #include <QDateTime>
 #include <QTimer>
 #include <QMessageBox>
-#include <QSettings>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QJsonDocument>
@@ -45,6 +44,7 @@
 #include "core/song.h"
 #include "core/timeconstants.h"
 #include "core/logging.h"
+#include "core/settings.h"
 #include "internet/localredirectserver.h"
 #include "settings/scrobblersettingspage.h"
 
@@ -110,7 +110,7 @@ ListenBrainzScrobbler::~ListenBrainzScrobbler() {
 
 void ListenBrainzScrobbler::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   enabled_ = s.value("enabled", false).toBool();
   user_token_ = s.value("user_token").toString();
@@ -124,7 +124,7 @@ void ListenBrainzScrobbler::ReloadSettings() {
 
 void ListenBrainzScrobbler::LoadSession() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   access_token_ = s.value("access_token").toString();
   expires_in_ = s.value("expires_in", -1).toInt();
@@ -150,7 +150,7 @@ void ListenBrainzScrobbler::Logout() {
   expires_in_ = -1;
   login_time_ = 0;
 
-  QSettings settings;
+  Settings settings;
   settings.beginGroup(kSettingsGroup);
   settings.remove("access_token");
   settings.remove("expires_in");
@@ -330,7 +330,7 @@ void ListenBrainzScrobbler::AuthenticateReplyFinished(QNetworkReply *reply) {
   }
   login_time_ = QDateTime::currentDateTime().toSecsSinceEpoch();
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("access_token", access_token_);
   s.setValue("expires_in", expires_in_);

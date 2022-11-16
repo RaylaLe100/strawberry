@@ -50,7 +50,6 @@
 #include <QAction>
 #include <QActionGroup>
 #include <QMenu>
-#include <QSettings>
 #include <QtEvents>
 
 #include "core/utilities.h"
@@ -58,6 +57,7 @@
 #include "core/application.h"
 #include "core/song.h"
 #include "core/iconloader.h"
+#include "core/settings.h"
 
 #include "collection/collectionbackend.h"
 #include "settings/collectionsettingspage.h"
@@ -142,7 +142,7 @@ void AlbumCoverChoiceController::Init(Application *app) {
 
 void AlbumCoverChoiceController::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(CollectionSettingsPage::kSettingsGroup);
   save_cover_type_ = CollectionSettingsPage::SaveCoverType(s.value("save_cover_type", CollectionSettingsPage::SaveCoverType_Cache).toInt());
   save_cover_filename_ = CollectionSettingsPage::SaveCoverFilename(s.value("save_cover_filename", CollectionSettingsPage::SaveCoverFilename_Pattern).toInt());

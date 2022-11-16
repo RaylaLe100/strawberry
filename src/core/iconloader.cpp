@@ -26,10 +26,10 @@
 #include <QIcon>
 #include <QSize>
 #include <QStandardPaths>
-#include <QSettings>
 
 #include "core/logging.h"
 #include "iconmapper.h"
+#include "settings.h"
 #include "settings/appearancesettingspage.h"
 #include "iconloader.h"
 
@@ -39,7 +39,7 @@ bool IconLoader::custom_icons_ = false;
 void IconLoader::Init() {
 
 #if !defined(Q_OS_MACOS) && !defined(Q_OS_WIN)
-  QSettings s;
+  Settings s;
   s.beginGroup(AppearanceSettingsPage::kSettingsGroup);
   system_icons_ = s.value("system_icons", false).toBool();
   s.endGroup();

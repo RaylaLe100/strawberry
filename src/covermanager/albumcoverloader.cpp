@@ -41,13 +41,13 @@
 #include <QPainter>
 #include <QNetworkReply>
 #include <QNetworkRequest>
-#include <QSettings>
 
 #include "core/networkaccessmanager.h"
 #include "core/song.h"
 #include "core/tagreaderclient.h"
 #include "core/utilities.h"
 #include "core/imageutils.h"
+#include "core/settings.h"
 #include "settings/collectionsettingspage.h"
 #include "organize/organizeformat.h"
 #include "albumcoverloader.h"
@@ -90,7 +90,7 @@ void AlbumCoverLoader::Exit() {
 
 void AlbumCoverLoader::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(CollectionSettingsPage::kSettingsGroup);
   save_cover_type_ = CollectionSettingsPage::SaveCoverType(s.value("save_cover_type", CollectionSettingsPage::SaveCoverType_Cache).toInt());
   save_cover_filename_ = CollectionSettingsPage::SaveCoverFilename(s.value("save_cover_filename", CollectionSettingsPage::SaveCoverFilename_Pattern).toInt());

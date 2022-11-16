@@ -26,7 +26,6 @@
 #include <QString>
 #include <QStringList>
 #include <QImage>
-#include <QSettings>
 
 #include "osdbase.h"
 #include "osdpretty.h"
@@ -34,6 +33,7 @@
 #include "core/application.h"
 #include "core/logging.h"
 #include "core/utilities.h"
+#include "core/settings.h"
 #ifdef Q_OS_MACOS
 #  include "core/macsystemtrayicon.h"
 #else
@@ -73,7 +73,7 @@ OSDBase::~OSDBase() {
 
 void OSDBase::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   behaviour_ = OSDBase::Behaviour(s.value("Behaviour", Native).toInt());
   timeout_msec_ = s.value("Timeout", 5000).toInt();

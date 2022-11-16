@@ -26,9 +26,9 @@
 #include <QStringList>
 #include <QUrl>
 #include <QNetworkProxy>
-#include <QSettings>
 
 #include "core/logging.h"
+#include "settings.h"
 #include "networkproxyfactory.h"
 
 NetworkProxyFactory *NetworkProxyFactory::sInstance = nullptr;
@@ -78,7 +78,7 @@ void NetworkProxyFactory::ReloadSettings() {
 
   QMutexLocker l(&mutex_);
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   mode_ = Mode(s.value("mode", Mode_System).toInt());

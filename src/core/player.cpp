@@ -33,7 +33,6 @@
 #include <QString>
 #include <QUrl>
 #include <QDateTime>
-#include <QSettings>
 
 #include "core/logging.h"
 
@@ -41,6 +40,7 @@
 #include "timeconstants.h"
 #include "urlhandler.h"
 #include "application.h"
+#include "settings.h"
 
 #include "engine/enginebase.h"
 #include "engine/enginetype.h"
@@ -94,7 +94,7 @@ Player::Player(Application *app, QObject *parent)
 
   settings_.beginGroup(kSettingsGroup);
 
-  QSettings s;
+  Settings s;
   s.beginGroup(BackendSettingsPage::kSettingsGroup);
   Engine::EngineType enginetype = Engine::EngineTypeFromName(s.value("engine", EngineName(Engine::GStreamer)).toString().toLower());
   s.endGroup();
@@ -138,7 +138,7 @@ Engine::EngineType Player::CreateEngine(Engine::EngineType enginetype) {
   }
 
   if (use_enginetype != enginetype) {  // Engine was set to something else. Reset output and device.
-    QSettings s;
+    Settings s;
     s.beginGroup(BackendSettingsPage::kSettingsGroup);
     s.setValue("engine", EngineName(use_enginetype));
     s.setValue("output", engine_->DefaultOutput());
@@ -158,7 +158,7 @@ Engine::EngineType Player::CreateEngine(Engine::EngineType enginetype) {
 
 void Player::Init() {
 
-  QSettings s;
+  Settings s;
 
   if (!engine_) {
     s.beginGroup(BackendSettingsPage::kSettingsGroup);
@@ -208,7 +208,7 @@ void Player::Init() {
 
 void Player::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
 
   s.beginGroup(PlaylistSettingsPage::kSettingsGroup);
   continue_on_error_ = s.value("continue_on_error", false).toBool();

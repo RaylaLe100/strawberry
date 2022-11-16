@@ -26,10 +26,10 @@
 #include <QRadioButton>
 #include <QSlider>
 #include <QLineEdit>
-#include <QSettings>
 #include <QShowEvent>
 
 #include "core/logging.h"
+#include "core/settings.h"
 
 #include "settingsdialog.h"
 #include "settingspage.h"
@@ -134,7 +134,7 @@ void SettingsPage::Apply() {
 
 }
 
-void SettingsPage::ComboBoxLoadFromSettings(const QSettings &s, QComboBox *combobox, const QString &setting, const QString &default_value) {
+void SettingsPage::ComboBoxLoadFromSettings(const Settings &s, QComboBox *combobox, const QString &setting, const QString &default_value) {
 
   QString value = s.value(setting, default_value).toString();
   int i = combobox->findData(value);
@@ -143,7 +143,7 @@ void SettingsPage::ComboBoxLoadFromSettings(const QSettings &s, QComboBox *combo
 
 }
 
-void SettingsPage::ComboBoxLoadFromSettings(const QSettings &s, QComboBox *combobox, const QString &setting, const int default_value) {
+void SettingsPage::ComboBoxLoadFromSettings(const Settings &s, QComboBox *combobox, const QString &setting, const int default_value) {
 
   int value = s.value(setting, default_value).toInt();
   int i = combobox->findData(value);
@@ -152,7 +152,7 @@ void SettingsPage::ComboBoxLoadFromSettings(const QSettings &s, QComboBox *combo
 
 }
 
-void SettingsPage::ComboBoxLoadFromSettingsByIndex(const QSettings &s, QComboBox *combobox, const QString &setting, const int default_value) {
+void SettingsPage::ComboBoxLoadFromSettingsByIndex(const Settings &s, QComboBox *combobox, const QString &setting, const int default_value) {
 
   if (combobox->count() == 0) return;
   int i = s.value(setting, default_value).toInt();

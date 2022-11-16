@@ -28,7 +28,8 @@
 #include <QWidget>
 #include <QString>
 #include <QIcon>
-#include <QSettings>
+
+#include "core/settings.h"
 
 class QTimer;
 class QTimeLine;
@@ -123,7 +124,7 @@ class PlaylistContainer : public QWidget {
   QAction *redo_;
   Playlist *playlist_;
 
-  QSettings settings_;
+  Settings settings_;
   bool starting_up_;
 
   bool tab_bar_visible_;

@@ -67,7 +67,6 @@
 #include <QPushButton>
 #include <QAbstractButton>
 #include <QtEvents>
-#include <QSettings>
 
 #include "core/application.h"
 #include "core/iconloader.h"
@@ -75,6 +74,7 @@
 #include "core/tagreaderclient.h"
 #include "core/utilities.h"
 #include "core/imageutils.h"
+#include "core/settings.h"
 #include "widgets/busyindicator.h"
 #include "widgets/lineedit.h"
 #include "collection/collectionbackend.h"
@@ -268,7 +268,7 @@ void EditTagDialog::showEvent(QShowEvent *e) {
     resize(width(), sizeHint().height());
 
     // Restore the tab that was current last time.
-    QSettings s;
+    Settings s;
     s.beginGroup(kSettingsGroup);
     if (s.contains("geometry")) {
       restoreGeometry(s.value("geometry").toByteArray());
@@ -287,7 +287,7 @@ void EditTagDialog::showEvent(QShowEvent *e) {
 void EditTagDialog::hideEvent(QHideEvent *e) {
 
   // Save the current tab
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("geometry", saveGeometry());
   s.setValue("current_tab", ui_->tab_widget->currentIndex());

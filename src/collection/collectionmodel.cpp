@@ -51,7 +51,6 @@
 #include <QRegularExpression>
 #include <QPixmapCache>
 #include <QNetworkDiskCache>
-#include <QSettings>
 #include <QStandardPaths>
 
 #include "core/application.h"
@@ -60,6 +59,7 @@
 #include "core/logging.h"
 #include "core/taskmanager.h"
 #include "core/sqlrow.h"
+#include "core/settings.h"
 #include "collectionquery.h"
 #include "collectionbackend.h"
 #include "collectiondirectorymodel.h"
@@ -162,7 +162,7 @@ void CollectionModel::set_show_dividers(const bool show_dividers) {
 
 void CollectionModel::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
 
   s.beginGroup(CollectionSettingsPage::kSettingsGroup);
 
@@ -1791,7 +1791,7 @@ bool CollectionModel::CompareItems(const CollectionItem *a, const CollectionItem
 
 }
 
-qint64 CollectionModel::MaximumCacheSize(QSettings *s, const char *size_id, const char *size_unit_id, const qint64 cache_size_default) {
+qint64 CollectionModel::MaximumCacheSize(Settings *s, const char *size_id, const char *size_unit_id, const qint64 cache_size_default) {
 
   qint64 size = s->value(size_id, cache_size_default).toInt();
   int unit = s->value(size_unit_id, CollectionSettingsPage::CacheSizeUnit::CacheSizeUnit_MB).toInt() + 1;

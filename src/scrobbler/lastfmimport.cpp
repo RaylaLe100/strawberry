@@ -30,7 +30,6 @@
 #include <QUrlQuery>
 #include <QDateTime>
 #include <QTimer>
-#include <QSettings>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QJsonDocument>
@@ -40,6 +39,7 @@
 
 #include "core/networkaccessmanager.h"
 #include "core/logging.h"
+#include "core/settings.h"
 
 #include "lastfmimport.h"
 
@@ -93,7 +93,7 @@ void LastFMImport::AbortAll() {
 
 void LastFMImport::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(LastFMScrobbler::kSettingsGroup);
   username_ = s.value("username").toString();
   s.endGroup();

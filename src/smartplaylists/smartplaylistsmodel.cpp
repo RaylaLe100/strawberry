@@ -25,12 +25,12 @@
 #include <QVariant>
 #include <QStringList>
 #include <QMimeData>
-#include <QSettings>
 
 #include "core/application.h"
 #include "core/database.h"
 #include "core/iconloader.h"
 #include "core/simpletreemodel.h"
+#include "core/settings.h"
 #include "collection/collectionbackend.h"
 
 #include "smartplaylistsitem.h"
@@ -116,7 +116,7 @@ void SmartPlaylistsModel::Init() {
     << (SmartPlaylistsModel::GeneratorList() << PlaylistGeneratorPtr(new PlaylistQueryGenerator(QT_TRANSLATE_NOOP("SmartPlaylists", "All tracks"), SmartPlaylistSearch(SmartPlaylistSearch::Type_All, SmartPlaylistSearch::TermList(), SmartPlaylistSearch::Sort_FieldAsc, SmartPlaylistSearchTerm::Field_Artist, -1))))
     << (SmartPlaylistsModel::GeneratorList() << PlaylistGeneratorPtr(new PlaylistQueryGenerator( QT_TRANSLATE_NOOP("SmartPlaylists", "Dynamic random mix"), SmartPlaylistSearch(SmartPlaylistSearch::Type_All, SmartPlaylistSearch::TermList(), SmartPlaylistSearch::Sort_Random, SmartPlaylistSearchTerm::Field_Title), true)));
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   int version = s.value(backend_->songs_table() + "_version", 0).toInt();
 
@@ -154,7 +154,7 @@ void SmartPlaylistsModel::Init() {
 
 }
 
-void SmartPlaylistsModel::ItemFromSmartPlaylist(const QSettings &s, const bool notify) {
+void SmartPlaylistsModel::ItemFromSmartPlaylist(const Settings &s, const bool notify) {
 
   SmartPlaylistsItem *item = new SmartPlaylistsItem(SmartPlaylistsItem::Type_SmartPlaylist, notify ? nullptr : root_);
   item->display_text = tr(qPrintable(s.value("name").toString()));
@@ -169,7 +169,7 @@ void SmartPlaylistsModel::ItemFromSmartPlaylist(const QSettings &s, const bool n
 
 void SmartPlaylistsModel::AddGenerator(PlaylistGeneratorPtr gen) {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   // Count the existing items
@@ -195,7 +195,7 @@ void SmartPlaylistsModel::UpdateGenerator(const QModelIndex &idx, PlaylistGenera
   if (!item) return;
 
   // Update the config
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   // Count the existing items
@@ -223,7 +223,7 @@ void SmartPlaylistsModel::DeleteGenerator(const QModelIndex &idx) {
   // Remove the item from the tree
   root_->DeleteNotify(idx.row());
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   // Rewrite all the items to the settings
@@ -240,7 +240,7 @@ void SmartPlaylistsModel::DeleteGenerator(const QModelIndex &idx) {
 
 }
 
-void SmartPlaylistsModel::SaveGenerator(QSettings *s, const int i, PlaylistGeneratorPtr generator) {
+void SmartPlaylistsModel::SaveGenerator(Settings *s, const int i, PlaylistGeneratorPtr generator) {
 
   s->setArrayIndex(i);
   s->setValue("name", generator->name());

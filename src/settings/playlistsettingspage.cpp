@@ -22,11 +22,11 @@
 #include "config.h"
 
 #include <QVariant>
-#include <QSettings>
 #include <QCheckBox>
 #include <QRadioButton>
 
 #include "core/iconloader.h"
+#include "core/settings.h"
 #include "playlist/playlist.h"
 #include "settingspage.h"
 #include "playlistsettingspage.h"
@@ -51,7 +51,7 @@ PlaylistSettingsPage::~PlaylistSettingsPage() {
 
 void PlaylistSettingsPage::Load() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   ui_->checkbox_alternating_row_colors->setChecked(s.value("alternating_row_colors", true).toBool());
@@ -105,7 +105,7 @@ void PlaylistSettingsPage::Load() {
 
   Init(ui_->layout_playlistsettingspage->parentWidget());
 
-  if (!QSettings().childGroups().contains(kSettingsGroup)) set_changed();
+  if (!Settings().childGroups().contains(kSettingsGroup)) set_changed();
 
 }
 
@@ -125,7 +125,7 @@ void PlaylistSettingsPage::Save() {
     path_type = PathType_Ask_User;
   }
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("alternating_row_colors", ui_->checkbox_alternating_row_colors->isChecked());
   s.setValue("show_bars", ui_->checkbox_barscurrenttrack->isChecked());

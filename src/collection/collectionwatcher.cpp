@@ -42,7 +42,6 @@
 #include <QStringList>
 #include <QUrl>
 #include <QImage>
-#include <QSettings>
 
 #include "core/filesystemwatcherinterface.h"
 #include "core/logging.h"
@@ -50,6 +49,7 @@
 #include "core/tagreaderclient.h"
 #include "core/taskmanager.h"
 #include "core/imageutils.h"
+#include "core/settings.h"
 #include "directory.h"
 #include "collectionbackend.h"
 #include "collectionwatcher.h"
@@ -138,7 +138,7 @@ void CollectionWatcher::ReloadSettingsAsync() {
 void CollectionWatcher::ReloadSettings() {
 
   const bool was_monitoring_before = monitor_;
-  QSettings s;
+  Settings s;
   s.beginGroup(CollectionSettingsPage::kSettingsGroup);
   scan_on_startup_ = s.value("startup_scan", true).toBool();
   monitor_ = s.value("monitor", true).toBool();

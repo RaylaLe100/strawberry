@@ -32,8 +32,8 @@
 #include <QDateTime>
 #include <QString>
 #include <QUrl>
-#include <QSettings>
 
+#include "settings.h"
 #include "urlhandler.h"
 #include "engine/engine_fwd.h"
 #include "engine/enginetype.h"
@@ -225,7 +225,7 @@ class Player : public PlayerInterface {
   AnalyzerContainer *analyzer_;
   Equalizer *equalizer_;
 
-  QSettings settings_;
+  Settings settings_;
 
   PlaylistItemPtr current_item_;
 

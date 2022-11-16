@@ -39,13 +39,13 @@
 #include <QList>
 #include <QTimer>
 #include <QMenu>
-#include <QSettings>
 #include <QToolButton>
 #include <QtEvents>
 
 #include "core/iconloader.h"
 #include "core/song.h"
 #include "core/logging.h"
+#include "core/settings.h"
 #include "collectionmodel.h"
 #include "collectionquery.h"
 #include "savedgroupingmanager.h"
@@ -171,7 +171,7 @@ void CollectionFilterWidget::Init(CollectionModel *model) {
 
   // Load settings
   if (!settings_group_.isEmpty()) {
-    QSettings s;
+    Settings s;
     s.beginGroup(settings_group_);
     int version = 0;
     if (s.contains(group_by_version())) version = s.value(group_by_version(), 0).toInt();
@@ -206,7 +206,7 @@ void CollectionFilterWidget::SetSettingsPrefix(const QString &prefix) {
 
 void CollectionFilterWidget::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(AppearanceSettingsPage::kSettingsGroup);
   int iconsize = s.value(AppearanceSettingsPage::kIconSizeConfigureButtons, 20).toInt();
   s.endGroup();
@@ -295,7 +295,7 @@ QActionGroup *CollectionFilterWidget::CreateGroupByActions(const QString &saved_
   ret->addAction(sep1);
 
   // Read saved groupings
-  QSettings s;
+  Settings s;
   s.beginGroup(saved_groupings_settings_group);
   int version = s.value("version").toInt();
   if (version == 1) {
@@ -350,7 +350,7 @@ void CollectionFilterWidget::SaveGroupBy() {
 
   qLog(Debug) << "Saving current grouping to" << name;
 
-  QSettings s;
+  Settings s;
   if (settings_group_.isEmpty() || settings_group_ == CollectionSettingsPage::kSettingsGroup) {
     s.beginGroup(SavedGroupingManager::kSavedGroupingsSettingsGroup);
   }
@@ -414,7 +414,7 @@ void CollectionFilterWidget::GroupByClicked(QAction *action) {
 void CollectionFilterWidget::GroupingChanged(const CollectionModel::Grouping g, const bool separate_albums_by_grouping) {
 
   if (!settings_group_.isEmpty()) {
-    QSettings s;
+    Settings s;
     s.beginGroup(settings_group_);
     s.setValue(group_by_version(), 1);
     s.setValue(group_by_key(1), static_cast<int>(g[0]));

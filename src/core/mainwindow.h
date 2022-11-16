@@ -45,12 +45,12 @@
 #include <QImage>
 #include <QPixmap>
 #include <QTimer>
-#include <QSettings>
 #include <QtEvents>
 
 #include "core/lazy.h"
 #include "core/tagreaderclient.h"
 #include "core/song.h"
+#include "core/settings.h"
 #include "engine/enginetype.h"
 #include "engine/engine_fwd.h"
 #include "mac_startup.h"
@@ -375,7 +375,7 @@ class MainWindow : public QMainWindow, public PlatformInterface {
 
   QTimer *track_position_timer_;
   QTimer *track_slider_timer_;
-  QSettings settings_;
+  Settings settings_;
 
   bool keep_running_;
   bool playing_widget_;

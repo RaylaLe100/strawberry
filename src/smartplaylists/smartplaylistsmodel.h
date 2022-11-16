@@ -28,10 +28,10 @@
 #include <QList>
 #include <QVariant>
 #include <QStringList>
-#include <QSettings>
 #include <QIcon>
 
 #include "core/simpletreemodel.h"
+#include "core/settings.h"
 #include "smartplaylistsitem.h"
 #include "playlistgenerator_fwd.h"
 
@@ -76,8 +76,8 @@ class SmartPlaylistsModel : public SimpleTreeModel<SmartPlaylistsItem> {
   static const char *kSmartPlaylistsMimeType;
   static const int kSmartPlaylistsVersion;
 
-  static void SaveGenerator(QSettings *s, const int i, PlaylistGeneratorPtr generator);
-  void ItemFromSmartPlaylist(const QSettings &s, const bool notify);
+  static void SaveGenerator(Settings *s, const int i, PlaylistGeneratorPtr generator);
+  void ItemFromSmartPlaylist(const Settings &s, const bool notify);
 
  private:
   CollectionBackend *backend_;

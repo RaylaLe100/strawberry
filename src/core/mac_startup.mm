@@ -61,7 +61,6 @@
 #include <QDir>
 #include <QEvent>
 #include <QFile>
-#include <QSettings>
 
 #include <QtDebug>
 

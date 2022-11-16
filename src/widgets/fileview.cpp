@@ -27,7 +27,6 @@
 #include <QString>
 #include <QStringList>
 #include <QUrl>
-#include <QSettings>
 #include <QMessageBox>
 #include <QScrollBar>
 #include <QLineEdit>
@@ -38,6 +37,7 @@
 #include "core/filesystemmusicstorage.h"
 #include "core/iconloader.h"
 #include "core/mimedata.h"
+#include "core/settings.h"
 #include "dialogs/deleteconfirmationdialog.h"
 #include "fileview.h"
 #include "fileviewlist.h"
@@ -101,7 +101,7 @@ FileView::~FileView() {
 
 void FileView::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(AppearanceSettingsPage::kSettingsGroup);
   int iconsize = s.value(AppearanceSettingsPage::kIconSizeLeftPanelButtons, 22).toInt();
   s.endGroup();

@@ -53,7 +53,7 @@
 #include "collectionitem.h"
 #include "covermanager/albumcoverloaderoptions.h"
 
-class QSettings;
+class Settings;
 
 class Application;
 class CollectionBackend;
@@ -80,7 +80,7 @@ class CollectionModel : public SimpleTreeModel<CollectionItem> {
     LastRole
   };
 
-  // These values get saved in QSettings - don't change them
+  // These values get saved in Settings - don't change them
   enum GroupBy {
     GroupBy_None = 0,
     GroupBy_AlbumArtist = 1,
@@ -267,7 +267,7 @@ class CollectionModel : public SimpleTreeModel<CollectionItem> {
   QVariant AlbumIcon(const QModelIndex &idx);
   QVariant data(const CollectionItem *item, const int role) const;
   bool CompareItems(const CollectionItem *a, const CollectionItem *b) const;
-  static qint64 MaximumCacheSize(QSettings *s, const char *size_id, const char *size_unit_id, const qint64 cache_size_default);
+  static qint64 MaximumCacheSize(Settings *s, const char *size_id, const char *size_unit_id, const qint64 cache_size_default);
 
  private:
   CollectionBackend *backend_;

@@ -35,7 +35,6 @@
 #include <QDesktopServices>
 #include <QCryptographicHash>
 #include <QRegularExpression>
-#include <QSettings>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -46,6 +45,7 @@
 #include "core/logging.h"
 #include "core/utilities.h"
 #include "core/networkaccessmanager.h"
+#include "core/settings.h"
 #include "internet/localredirectserver.h"
 #include "jsonlyricsprovider.h"
 #include "lyricsfetcher.h"
@@ -62,7 +62,7 @@ const char *GeniusLyricsProvider::kClientSecretB64 = "VE9pMU9vUjNtTXZ3eFR3YVN0QV
 
 GeniusLyricsProvider::GeniusLyricsProvider(NetworkAccessManager *network, QObject *parent) : JsonLyricsProvider("Genius", true, true, network, parent), server_(nullptr) {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   if (s.contains("access_token")) {
     access_token_ = s.value("access_token").toString();
@@ -283,7 +283,7 @@ void GeniusLyricsProvider::AccessTokenRequestFinished(QNetworkReply *reply) {
 
   access_token_ = json_obj["access_token"].toString();
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("access_token", access_token_);
   s.endGroup();

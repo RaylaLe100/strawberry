@@ -59,7 +59,6 @@
 #include <QPushButton>
 #include <QToolButton>
 #include <QKeySequence>
-#include <QSettings>
 #include <QFlags>
 #include <QSize>
 #include <QtEvents>
@@ -71,6 +70,7 @@
 #include "core/tagreaderclient.h"
 #include "core/database.h"
 #include "core/sqlrow.h"
+#include "core/settings.h"
 #include "widgets/forcescrollperpixel.h"
 #include "widgets/qsearchfield.h"
 #include "collection/collectionbackend.h"
@@ -219,7 +219,7 @@ void AlbumCoverManager::Init() {
   QObject::connect(ui_->action_load, &QAction::triggered, this, &AlbumCoverManager::LoadSelectedToPlaylist);
 
   // Restore settings
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   if (s.contains("geometry")) {
@@ -280,7 +280,7 @@ void AlbumCoverManager::closeEvent(QCloseEvent *e) {
 
 void AlbumCoverManager::LoadGeometry() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   if (s.contains("geometry")) {
     restoreGeometry(s.value("geometry").toByteArray());
@@ -311,7 +311,7 @@ void AlbumCoverManager::LoadGeometry() {
 
 void AlbumCoverManager::SaveSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("geometry", saveGeometry());
   s.setValue("splitter_state", ui_->splitter->saveState());

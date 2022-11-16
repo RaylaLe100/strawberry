@@ -31,7 +31,6 @@
 #include <QTreeWidget>
 #include <QKeySequence>
 #include <QShortcut>
-#include <QSettings>
 #include <QCheckBox>
 #include <QGroupBox>
 #include <QPushButton>
@@ -41,6 +40,7 @@
 #include "core/iconloader.h"
 #include "core/logging.h"
 #include "core/utilities.h"
+#include "core/settings.h"
 #include "globalshortcuts/globalshortcutgrabber.h"
 #include "globalshortcuts/globalshortcutsmanager.h"
 #include "settingspage.h"
@@ -95,7 +95,7 @@ GlobalShortcutsSettingsPage::~GlobalShortcutsSettingsPage() { delete ui_; }
 
 void GlobalShortcutsSettingsPage::Load() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   GlobalShortcutsManager *manager = dialog()->global_shortcuts_manager();
@@ -205,13 +205,13 @@ void GlobalShortcutsSettingsPage::Load() {
 
   Init(ui_->layout_globalshortcutssettingspage->parentWidget());
 
-  if (!QSettings().childGroups().contains(kSettingsGroup)) set_changed();
+  if (!Settings().childGroups().contains(kSettingsGroup)) set_changed();
 
 }
 
 void GlobalShortcutsSettingsPage::Save() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   QList<Shortcut> shortcuts = shortcuts_.values();

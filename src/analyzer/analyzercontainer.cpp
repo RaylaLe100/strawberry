@@ -31,7 +31,6 @@
 #include <QMenu>
 #include <QAction>
 #include <QActionGroup>
-#include <QSettings>
 #include <QtEvents>
 
 #include "analyzercontainer.h"
@@ -42,6 +41,7 @@
 #include "rainbowanalyzer.h"
 
 #include "core/logging.h"
+#include "core/settings.h"
 #include "engine/enginebase.h"
 #include "engine/enginetype.h"
 
@@ -176,7 +176,7 @@ void AnalyzerContainer::ChangeFramerate(int new_framerate) {
 
 void AnalyzerContainer::Load() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   QString type = s.value("type", "BlockAnalyzer").toString();
   current_framerate_ = s.value(kSettingsFramerate, kMediumFramerate).toInt();
@@ -213,7 +213,7 @@ void AnalyzerContainer::SaveFramerate(const int framerate) {
 
   // For now, framerate is common for all analyzers. Maybe each analyzer should have its own framerate?
   current_framerate_ = framerate;
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue(kSettingsFramerate, current_framerate_);
   s.endGroup();
@@ -222,7 +222,7 @@ void AnalyzerContainer::SaveFramerate(const int framerate) {
 
 void AnalyzerContainer::Save() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("type", current_analyzer_ ? current_analyzer_->metaObject()->className() : QVariant());
   s.endGroup();

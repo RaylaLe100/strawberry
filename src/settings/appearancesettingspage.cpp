@@ -38,13 +38,13 @@
 #include <QCheckBox>
 #include <QComboBox>
 #include <QSpinBox>
-#include <QSettings>
 
 #include "appearancesettingspage.h"
 #include "core/utilities.h"
 #include "core/appearance.h"
 #include "core/iconloader.h"
 #include "core/stylehelper.h"
+#include "core/settings.h"
 #include "covermanager/albumcoverchoicecontroller.h"
 #include "settingspage.h"
 #include "settingsdialog.h"
@@ -149,7 +149,7 @@ AppearanceSettingsPage::~AppearanceSettingsPage() {
 
 void AppearanceSettingsPage::Load() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   ComboBoxLoadFromSettings(s, ui_->combobox_style, kStyle, "default");
@@ -240,13 +240,13 @@ void AppearanceSettingsPage::Load() {
 
   Init(ui_->layout_appearancesettingspage->parentWidget());
 
-  if (!QSettings().childGroups().contains(kSettingsGroup)) set_changed();
+  if (!Settings().childGroups().contains(kSettingsGroup)) set_changed();
 
 }
 
 void AppearanceSettingsPage::Save() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   s.setValue("style", ui_->combobox_style->currentText());

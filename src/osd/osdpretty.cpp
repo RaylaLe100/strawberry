@@ -47,7 +47,6 @@
 #include <QTransform>
 #include <QBoxLayout>
 #include <QLinearGradient>
-#include <QSettings>
 #include <QFlags>
 #include <QtEvents>
 
@@ -65,6 +64,7 @@
 #endif
 
 #include "core/utilities.h"
+#include "core/settings.h"
 
 using namespace std::chrono_literals;
 
@@ -230,7 +230,7 @@ bool OSDPretty::IsTransparencyAvailable() {
 
 void OSDPretty::Load() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   foreground_color_ = QColor(s.value("foreground_color", 0).toInt());
   background_color_ = QColor(s.value("background_color", kPresetBlue).toInt());

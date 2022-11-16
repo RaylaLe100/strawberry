@@ -51,13 +51,13 @@
 #include <QPushButton>
 #include <QTreeWidget>
 #include <QDialogButtonBox>
-#include <QSettings>
 #include <QTimerEvent>
 #include <QShowEvent>
 #include <QCloseEvent>
 
 #include "core/iconloader.h"
 #include "core/mainwindow.h"
+#include "core/settings.h"
 #include "widgets/fileview.h"
 #include "transcodedialog.h"
 #include "transcoder.h"
@@ -107,7 +107,7 @@ TranscodeDialog::TranscodeDialog(QMainWindow *mainwindow, QWidget *parent)
   }
 
   // Load settings
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   last_add_dir_ = s.value("last_add_dir", QDir::homePath()).toString();
   last_import_dir_ = s.value("last_import_dir", QDir::homePath()).toString();
@@ -186,7 +186,7 @@ void TranscodeDialog::reject() {
 
 void TranscodeDialog::LoadGeometry() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   if (s.contains("geometry")) {
     restoreGeometry(s.value("geometry").toByteArray());
@@ -210,7 +210,7 @@ void TranscodeDialog::LoadGeometry() {
 
 void TranscodeDialog::SaveGeometry() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("geometry", saveGeometry());
   s.endGroup();
@@ -261,7 +261,7 @@ void TranscodeDialog::Start() {
   transcoder_->Start();
 
   // Save the last output format
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("last_output_format", preset.codec_mimetype_);
   s.endGroup();
@@ -337,7 +337,7 @@ void TranscodeDialog::Add() {
   SetFilenames(filenames);
 
   last_add_dir_ = filenames[0];
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("last_add_dir", last_add_dir_);
   s.endGroup();
@@ -367,7 +367,7 @@ void TranscodeDialog::Import() {
   SetFilenames(filenames);
 
   last_import_dir_ = path;
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("last_import_dir", last_import_dir_);
   s.endGroup();

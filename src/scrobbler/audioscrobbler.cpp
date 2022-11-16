@@ -20,11 +20,11 @@
 #include "config.h"
 
 #include <QString>
-#include <QSettings>
 
 #include "core/application.h"
 #include "core/logging.h"
 #include "core/song.h"
+#include "core/settings.h"
 #include "settings/settingsdialog.h"
 #include "settings/scrobblersettingspage.h"
 
@@ -67,7 +67,7 @@ AudioScrobbler::AudioScrobbler(Application *app, QObject *parent)
 
 void AudioScrobbler::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(ScrobblerSettingsPage::kSettingsGroup);
   enabled_ = s.value("enabled", false).toBool();
   offline_ = s.value("offline", false).toBool();
@@ -115,7 +115,7 @@ void AudioScrobbler::ToggleScrobbling() {
   bool enabled_old_ = enabled_;
   enabled_ = !enabled_;
 
-  QSettings s;
+  Settings s;
   s.beginGroup(ScrobblerSettingsPage::kSettingsGroup);
   s.setValue("enabled", enabled_);
   s.endGroup();
@@ -130,7 +130,7 @@ void AudioScrobbler::ToggleOffline() {
   bool offline_old_ = offline_;
   offline_ = !offline_;
 
-  QSettings s;
+  Settings s;
   s.beginGroup(ScrobblerSettingsPage::kSettingsGroup);
   s.setValue("offline", offline_);
   s.endGroup();

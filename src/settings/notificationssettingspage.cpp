@@ -43,11 +43,11 @@
 #include <QToolButton>
 #include <QToolTip>
 #include <QtEvents>
-#include <QSettings>
 
 #include "core/iconloader.h"
 #include "osd/osdbase.h"
 #include "osd/osdpretty.h"
+#include "core/settings.h"
 #include "settingspage.h"
 #include "settingsdialog.h"
 #include "notificationssettingspage.h"
@@ -151,7 +151,7 @@ void NotificationsSettingsPage::hideEvent(QHideEvent*) {
 
 void NotificationsSettingsPage::Load() {
 
-  QSettings s;
+  Settings s;
 
   s.beginGroup(OSDBase::kSettingsGroup);
   OSDBase::Behaviour osd_behaviour = OSDBase::Behaviour(s.value("Behaviour", OSDBase::Native).toInt());
@@ -221,13 +221,13 @@ void NotificationsSettingsPage::Load() {
 
   Init(ui_->layout_notificationssettingspage->parentWidget());
 
-  if (!QSettings().childGroups().contains(OSDBase::kSettingsGroup)) set_changed();
+  if (!Settings().childGroups().contains(OSDBase::kSettingsGroup)) set_changed();
 
 }
 
 void NotificationsSettingsPage::Save() {
 
-  QSettings s;
+  Settings s;
 
   OSDBase::Behaviour osd_behaviour = OSDBase::Disabled;
   if      (ui_->notifications_none->isChecked())   osd_behaviour = OSDBase::Disabled;

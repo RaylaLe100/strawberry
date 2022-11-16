@@ -28,12 +28,12 @@
 #include <QItemSelectionModel>
 #include <QList>
 #include <QTimer>
-#include <QSettings>
 #include <QKeySequence>
 #include <QLabel>
 #include <QToolButton>
 
 #include "core/iconloader.h"
+#include "core/settings.h"
 #include "playlist/playlist.h"
 #include "playlist/playlistdelegates.h"
 #include "playlist/playlistmanager.h"
@@ -85,7 +85,7 @@ void QueueView::SetPlaylistManager(PlaylistManager *manager) {
 
 void QueueView::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(AppearanceSettingsPage::kSettingsGroup);
   int iconsize = s.value(AppearanceSettingsPage::kIconSizeLeftPanelButtons, 22).toInt();
   s.endGroup();

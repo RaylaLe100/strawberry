@@ -39,12 +39,12 @@
 #include <QUrl>
 #include <QAbstractItemModel>
 #include <QScrollBar>
-#include <QSettings>
 #include <QMessageBox>
 
 #include "core/application.h"
 #include "core/player.h"
 #include "core/utilities.h"
+#include "core/settings.h"
 #include "collection/collectionbackend.h"
 #include "covermanager/currentalbumcoverloader.h"
 #include "organize/organizeformat.h"
@@ -240,7 +240,7 @@ void PlaylistManager::ItemsLoadedForSavePlaylist(const SongList &songs, const QS
 
 void PlaylistManager::SaveWithUI(const int id, const QString &playlist_name) {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(Playlist::kSettingsGroup);
   QString last_save_filter = s.value("last_save_filter", parser()->default_filter()).toString();
   QString last_save_path = s.value("last_save_path", QDir::homePath()).toString();
@@ -635,7 +635,7 @@ void PlaylistManager::SaveAllPlaylists() {
   QString extension = dialog.extension();
   if (extension.isEmpty()) extension = parser()->default_extension();
 
-  QSettings s;
+  Settings s;
   s.beginGroup(PlaylistSettingsPage::kSettingsGroup);
   PlaylistSettingsPage::PathType path_type = static_cast<PlaylistSettingsPage::PathType>(s.value("path_type", PlaylistSettingsPage::PathType_Automatic).toInt());
   s.endGroup();

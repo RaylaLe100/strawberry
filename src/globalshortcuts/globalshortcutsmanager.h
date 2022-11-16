@@ -32,7 +32,8 @@
 #include <QMap>
 #include <QString>
 #include <QKeySequence>
-#include <QSettings>
+
+#include "core/settings.h"
 
 #include "globalshortcutsbackend.h"
 
@@ -103,7 +104,7 @@ class GlobalShortcutsManager : public QWidget {
 
  private:
   QList<GlobalShortcutsBackend*> backends_;
-  QSettings settings_;
+  Settings settings_;
   QList<GlobalShortcutsBackend::Type> backends_enabled_;
   QMap<QString, Shortcut> shortcuts_;
 };

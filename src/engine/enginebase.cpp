@@ -28,11 +28,11 @@
 #include <QtGlobal>
 #include <QVariant>
 #include <QUrl>
-#include <QSettings>
 
 #include "core/utilities.h"
 #include "core/timeconstants.h"
 #include "core/networkproxyfactory.h"
+#include "core/settings.h"
 #include "engine_fwd.h"
 #include "enginebase.h"
 #include "settings/backendsettingspage.h"
@@ -113,7 +113,7 @@ uint Engine::Base::MakeVolumeLogarithmic(const uint volume) {
 
 void Engine::Base::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
 
   s.beginGroup(BackendSettingsPage::kSettingsGroup);
 

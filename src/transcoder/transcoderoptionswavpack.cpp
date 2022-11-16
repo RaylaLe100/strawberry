@@ -21,7 +21,8 @@
 
 #include <QWidget>
 #include <QString>
-#include <QSettings>
+
+#include "core/settings.h"
 
 #include "transcoderoptionsinterface.h"
 #include "transcoderoptionswavpack.h"
@@ -39,7 +40,7 @@ TranscoderOptionsWavPack::~TranscoderOptionsWavPack() {
 
 void TranscoderOptionsWavPack::Load() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup + settings_postfix_);
   s.endGroup();
 
@@ -47,7 +48,7 @@ void TranscoderOptionsWavPack::Load() {
 
 void TranscoderOptionsWavPack::Save() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup + settings_postfix_);
   s.endGroup();
 

@@ -31,10 +31,10 @@
 #include <QStackedWidget>
 #include <QContextMenuEvent>
 #include <QAction>
-#include <QSettings>
 
 #include "core/application.h"
 #include "core/iconloader.h"
+#include "core/settings.h"
 #include "collection/collectionbackend.h"
 #include "collection/collectionmodel.h"
 #include "collection/collectionfilterwidget.h"
@@ -158,7 +158,7 @@ InternetTabsView::InternetTabsView(Application *app, InternetService *service, c
     ui_->tabs->removeTab(ui_->tabs->indexOf(ui_->songs));
   }
 
-  QSettings s;
+  Settings s;
   s.beginGroup(settings_group_);
   QString tab = s.value("tab", "artists").toString().toLower();
   s.endGroup();
@@ -182,7 +182,7 @@ InternetTabsView::InternetTabsView(Application *app, InternetService *service, c
 
 InternetTabsView::~InternetTabsView() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(settings_group_);
   s.setValue("tab", ui_->tabs->currentWidget()->objectName().toLower());
   s.endGroup();

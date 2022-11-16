@@ -42,7 +42,6 @@
 #include <QSpacerItem>
 #include <QLabel>
 #include <QTextEdit>
-#include <QSettings>
 #include <QResizeEvent>
 #include <QContextMenuEvent>
 #include <QDragEnterEvent>
@@ -53,6 +52,7 @@
 #include "core/song.h"
 #include "core/utilities.h"
 #include "core/iconloader.h"
+#include "core/settings.h"
 #include "widgets/resizabletextedit.h"
 #include "engine/engine_fwd.h"
 #include "engine/enginebase.h"
@@ -333,7 +333,7 @@ void ContextView::AddActions() {
 
 void ContextView::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(ContextSettingsPage::kSettingsGroup);
   title_fmt_ = s.value(ContextSettingsPage::kSettingsTitleFmt, "%title% - %artist%").toString();
   summary_fmt_ = s.value(ContextSettingsPage::kSettingsSummaryFmt, "%album%").toString();
@@ -736,7 +736,7 @@ void ContextView::AlbumCoverLoaded(const Song &song, const QImage &image) {
 
 void ContextView::ActionShowAlbum() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(ContextSettingsPage::kSettingsGroup);
   s.setValue(ContextSettingsPage::kSettingsGroupEnable[ContextSettingsPage::ContextSettingsOrder::ALBUM], action_show_album_->isChecked());
   s.endGroup();
@@ -746,7 +746,7 @@ void ContextView::ActionShowAlbum() {
 
 void ContextView::ActionShowData() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(ContextSettingsPage::kSettingsGroup);
   s.setValue(ContextSettingsPage::kSettingsGroupEnable[ContextSettingsPage::ContextSettingsOrder::TECHNICAL_DATA], action_show_data_->isChecked());
   s.endGroup();
@@ -756,7 +756,7 @@ void ContextView::ActionShowData() {
 
 void ContextView::ActionShowOutput() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(ContextSettingsPage::kSettingsGroup);
   s.setValue(ContextSettingsPage::kSettingsGroupEnable[ContextSettingsPage::ContextSettingsOrder::ENGINE_AND_DEVICE], action_show_output_->isChecked());
   s.endGroup();
@@ -766,7 +766,7 @@ void ContextView::ActionShowOutput() {
 
 void ContextView::ActionShowLyrics() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(ContextSettingsPage::kSettingsGroup);
   s.setValue(ContextSettingsPage::kSettingsGroupEnable[ContextSettingsPage::ContextSettingsOrder::SONG_LYRICS], action_show_lyrics_->isChecked());
   s.endGroup();
@@ -779,7 +779,7 @@ void ContextView::ActionShowLyrics() {
 
 void ContextView::ActionSearchLyrics() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(ContextSettingsPage::kSettingsGroup);
   s.setValue(ContextSettingsPage::kSettingsGroupEnable[ContextSettingsPage::ContextSettingsOrder::SEARCH_LYRICS], action_search_lyrics_->isChecked());
   s.endGroup();

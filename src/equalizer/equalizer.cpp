@@ -41,9 +41,9 @@
 #include <QCheckBox>
 #include <QComboBox>
 #include <QBoxLayout>
-#include <QSettings>
 
 #include "core/iconloader.h"
+#include "core/settings.h"
 #include "equalizer.h"
 #include "equalizerslider.h"
 #include "ui_equalizer.h"
@@ -95,7 +95,7 @@ Equalizer::~Equalizer() {
 
 void Equalizer::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   presets_.clear();
@@ -321,7 +321,7 @@ void Equalizer::EqualizerParametersChangedSlot() {
 
 void Equalizer::Save() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   // Presets

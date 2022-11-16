@@ -50,7 +50,6 @@
 #include <QMenu>
 #include <QAction>
 #include <QActionGroup>
-#include <QSettings>
 #include <QStackedWidget>
 #include <QLabel>
 #include <QProgressBar>
@@ -68,6 +67,7 @@
 #include "core/mimedata.h"
 #include "core/iconloader.h"
 #include "core/song.h"
+#include "core/settings.h"
 #include "collection/collectionfilterwidget.h"
 #include "collection/collectionmodel.h"
 #include "collection/groupbydialog.h"
@@ -211,7 +211,7 @@ void InternetSearchView::Init(Application *app, InternetService *service) {
 
 void InternetSearchView::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
 
   // Collection settings
 
@@ -707,7 +707,7 @@ void InternetSearchView::SetGroupBy(const CollectionModel::Grouping g) {
   back_model_->SetGroupBy(g, false);
 
   // Save the setting
-  QSettings s;
+  Settings s;
   s.beginGroup(service_->settings_group());
   s.setValue("search_group_by_version", 1);
   s.setValue("search_group_by1", static_cast<int>(g.first));
@@ -747,7 +747,7 @@ void InternetSearchView::SetSearchType(const InternetSearchView::SearchType type
 
   search_type_ = type;
 
-  QSettings s;
+  Settings s;
   s.beginGroup(service_->settings_group());
   s.setValue("type", static_cast<int>(search_type_));
   s.endGroup();

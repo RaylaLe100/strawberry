@@ -69,7 +69,7 @@ SpotifyCoverProvider::SpotifyCoverProvider(Application *app, NetworkAccessManage
   refresh_login_timer_.setSingleShot(true);
   QObject::connect(&refresh_login_timer_, &QTimer::timeout, this, &SpotifyCoverProvider::RequestNewAccessToken);
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   access_token_ = s.value("access_token").toString();
   refresh_token_ = s.value("refresh_token").toString();
@@ -160,7 +160,7 @@ void SpotifyCoverProvider::Deauthenticate() {
   expires_in_ = 0;
   login_time_ = 0;
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.remove("access_token");
   s.remove("refresh_token");
@@ -334,7 +334,7 @@ void SpotifyCoverProvider::AccessTokenRequestFinished(QNetworkReply *reply) {
   expires_in_ = json_obj["expires_in"].toInt();
   login_time_ = QDateTime::currentDateTime().toSecsSinceEpoch();
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("access_token", access_token_);
   s.setValue("refresh_token", refresh_token_);

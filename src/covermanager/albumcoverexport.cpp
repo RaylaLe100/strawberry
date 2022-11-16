@@ -25,10 +25,11 @@
 #include <QDialog>
 #include <QVariant>
 #include <QString>
-#include <QSettings>
 #include <QLineEdit>
 #include <QCheckBox>
 #include <QRadioButton>
+
+#include "core/settings.h"
 
 #include "albumcoverexport.h"
 #include "ui_albumcoverexport.h"
@@ -47,7 +48,7 @@ AlbumCoverExport::~AlbumCoverExport() { delete ui_; }
 
 AlbumCoverExport::DialogResult AlbumCoverExport::Exec() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   // Restore last accepted settings

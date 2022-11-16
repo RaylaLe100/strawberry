@@ -24,7 +24,6 @@
 #include <QByteArray>
 #include <QString>
 #include <QUrl>
-#include <QSettings>
 #include <QCheckBox>
 #include <QLineEdit>
 #include <QPushButton>
@@ -36,6 +35,7 @@
 #include "ui_subsonicsettingspage.h"
 #include "core/application.h"
 #include "core/iconloader.h"
+#include "core/settings.h"
 #include "internet/internetservices.h"
 #include "subsonic/subsonicservice.h"
 
@@ -71,7 +71,7 @@ SubsonicSettingsPage::~SubsonicSettingsPage() { delete ui_; }
 
 void SubsonicSettingsPage::Load() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   ui_->enable->setChecked(s.value("enabled", false).toBool());
   ui_->server_url->setText(s.value("url").toString());
@@ -98,13 +98,13 @@ void SubsonicSettingsPage::Load() {
 
   Init(ui_->layout_subsonicsettingspage->parentWidget());
 
-  if (!QSettings().childGroups().contains(kSettingsGroup)) set_changed();
+  if (!Settings().childGroups().contains(kSettingsGroup)) set_changed();
 
 }
 
 void SubsonicSettingsPage::Save() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("enabled", ui_->enable->isChecked());
   s.setValue("url", QUrl(ui_->server_url->text()));

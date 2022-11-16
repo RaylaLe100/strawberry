@@ -55,7 +55,6 @@
 #include <QAbstractListModel>
 #include <QMutableListIterator>
 #include <QFlags>
-#include <QSettings>
 #include <QTimer>
 
 #include "core/application.h"
@@ -64,6 +63,7 @@
 #include "core/tagreaderclient.h"
 #include "core/song.h"
 #include "core/timeconstants.h"
+#include "core/settings.h"
 #include "collection/collection.h"
 #include "collection/collectionbackend.h"
 #include "collection/collectionplaylistitem.h"
@@ -1556,7 +1556,7 @@ void Playlist::ItemsLoaded() {
 
   emit RestoreFinished();
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   bool greyout = s.value("greyout_songs_startup", true).toBool();
   s.endGroup();

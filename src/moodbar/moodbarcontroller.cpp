@@ -44,7 +44,7 @@ MoodbarController::MoodbarController(Application *app, QObject *parent)
 
 void MoodbarController::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(MoodbarSettingsPage::kSettingsGroup);
   enabled_ = s.value("enabled", false).toBool();
   s.endGroup();

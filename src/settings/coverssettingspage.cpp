@@ -27,7 +27,6 @@
 #include <QString>
 #include <QStringList>
 #include <QPalette>
-#include <QSettings>
 #include <QGroupBox>
 #include <QPushButton>
 #include <QListWidget>
@@ -39,6 +38,7 @@
 #include "ui_coverssettingspage.h"
 #include "core/application.h"
 #include "core/iconloader.h"
+#include "core/settings.h"
 #include "covermanager/coverproviders.h"
 #include "covermanager/coverprovider.h"
 #include "widgets/loginstatewidget.h"
@@ -89,7 +89,7 @@ void CoversSettingsPage::Load() {
 
   Init(ui_->layout_coverssettingspage->parentWidget());
 
-  if (!QSettings().childGroups().contains(kSettingsGroup)) set_changed();
+  if (!Settings().childGroups().contains(kSettingsGroup)) set_changed();
 
 }
 
@@ -101,7 +101,7 @@ void CoversSettingsPage::Save() {
     if (item->checkState() == Qt::Checked) providers << item->text();  // clazy:exclude=reserve-candidates
   }
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("providers", providers);
   s.endGroup();

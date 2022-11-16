@@ -26,7 +26,8 @@
 #include <QComboBox>
 #include <QSlider>
 #include <QSpinBox>
-#include <QSettings>
+
+#include "core/settings.h"
 
 #include "transcoderoptionsinterface.h"
 #include "transcoderoptionsspeex.h"
@@ -44,7 +45,7 @@ TranscoderOptionsSpeex::~TranscoderOptionsSpeex() {
 
 void TranscoderOptionsSpeex::Load() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup + settings_postfix_);
 
   ui_->quality_slider->setValue(s.value("quality", 10).toInt());
@@ -63,7 +64,7 @@ void TranscoderOptionsSpeex::Load() {
 
 void TranscoderOptionsSpeex::Save() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup + settings_postfix_);
 
   s.setValue("quality", ui_->quality_slider->value());

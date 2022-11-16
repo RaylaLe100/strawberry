@@ -44,12 +44,12 @@
 #include <QLabel>
 #include <QLayout>
 #include <QStackedWidget>
-#include <QSettings>
 #include <QShowEvent>
 #include <QCloseEvent>
 
 #include "core/application.h"
 #include "core/player.h"
+#include "core/settings.h"
 #include "widgets/groupediconview.h"
 #include "collection/collectionmodel.h"
 
@@ -238,7 +238,7 @@ void SettingsDialog::reject() {
 
 void SettingsDialog::LoadGeometry() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   if (s.contains("geometry")) {
     restoreGeometry(s.value("geometry").toByteArray());
@@ -262,7 +262,7 @@ void SettingsDialog::LoadGeometry() {
 
 void SettingsDialog::SaveGeometry() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("geometry", saveGeometry());
   s.endGroup();

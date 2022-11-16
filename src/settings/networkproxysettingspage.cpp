@@ -22,7 +22,6 @@
 #include "config.h"
 
 #include <QVariant>
-#include <QSettings>
 #include <QNetworkProxy>
 #include <QComboBox>
 #include <QGroupBox>
@@ -32,6 +31,7 @@
 
 #include "core/iconloader.h"
 #include "core/networkproxyfactory.h"
+#include "core/settings.h"
 #include "networkproxysettingspage.h"
 #include "settings/settingspage.h"
 #include "ui_networkproxysettingspage.h"
@@ -53,7 +53,7 @@ NetworkProxySettingsPage::~NetworkProxySettingsPage() { delete ui_; }
 
 void NetworkProxySettingsPage::Load() {
 
-  QSettings s;
+  Settings s;
 
   s.beginGroup(NetworkProxyFactory::kSettingsGroup);
   NetworkProxyFactory::Mode mode = NetworkProxyFactory::Mode(s.value("mode", NetworkProxyFactory::Mode_System).toInt());
@@ -83,13 +83,13 @@ void NetworkProxySettingsPage::Load() {
 
   Init(ui_->layout_networkproxysettingspage->parentWidget());
 
-  if (!QSettings().childGroups().contains(kSettingsGroup)) set_changed();
+  if (!Settings().childGroups().contains(kSettingsGroup)) set_changed();
 
 }
 
 void NetworkProxySettingsPage::Save() {
 
-  QSettings s;
+  Settings s;
 
   NetworkProxyFactory::Mode mode = NetworkProxyFactory::Mode_System;
   if (ui_->proxy_direct->isChecked()) mode = NetworkProxyFactory::Mode_Direct;

@@ -56,7 +56,6 @@
 #include <QFile>
 #include <QDir>
 #include <QString>
-#include <QSettings>
 #include <QLoggingCategory>
 #ifdef HAVE_TRANSLATIONS
 #  include <QTranslator>
@@ -87,6 +86,7 @@
 #include "core/commandlineoptions.h"
 #include "core/application.h"
 #include "core/networkproxyfactory.h"
+#include "core/settings.h"
 #ifdef Q_OS_MACOS
 #  include "core/macsystemtrayicon.h"
 #else
@@ -213,7 +213,7 @@ int main(int argc, char *argv[]) {
   QCoreApplication::setAttribute(Qt::AA_DontShowIconsInMenus, false);
 
   {
-    QSettings s;
+    Settings s;
     s.beginGroup(AppearanceSettingsPage::kSettingsGroup);
     QString style = s.value(AppearanceSettingsPage::kStyle).toString();
     if (style.isEmpty()) {
@@ -231,7 +231,7 @@ int main(int argc, char *argv[]) {
   // On Windows these are stored in the registry instead.
 #ifdef Q_OS_UNIX
   {
-    QSettings s;
+    Settings s;
     if (QFile::exists(s.fileName())) {
       if (!QFile::setPermissions(s.fileName(), QFile::ReadOwner | QFile::WriteOwner)) {
         qLog(Error) << "Could not set permissions for settingsfile" << s.fileName();
@@ -259,7 +259,7 @@ int main(int argc, char *argv[]) {
 #ifdef HAVE_TRANSLATIONS
   QString override_language = options.language();
   if (override_language.isEmpty()) {
-    QSettings s;
+    Settings s;
     s.beginGroup(BehaviourSettingsPage::kSettingsGroup);
     override_language = s.value("language").toString();
     s.endGroup();

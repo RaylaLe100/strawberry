@@ -44,7 +44,6 @@
 #include <QMenu>
 #include <QAction>
 #include <QMessageBox>
-#include <QSettings>
 #include <QtEvents>
 
 #include "core/application.h"
@@ -53,6 +52,7 @@
 #include "core/utilities.h"
 #include "core/musicstorage.h"
 #include "core/deletefiles.h"
+#include "core/settings.h"
 #include "collection.h"
 #include "collectionbackend.h"
 #include "collectiondirectorymodel.h"
@@ -222,7 +222,7 @@ bool CollectionView::RestoreLevelFocus(const QModelIndex &parent) {
 
 void CollectionView::ReloadSettings() {
 
-  QSettings settings;
+  Settings settings;
 
   settings.beginGroup(CollectionSettingsPage::kSettingsGroup);
   SetAutoOpen(settings.value("auto_open", false).toBool());

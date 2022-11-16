@@ -25,10 +25,10 @@
 #include <QByteArray>
 #include <QString>
 #include <QStringList>
-#include <QSettings>
 
 #include "core/logging.h"
 #include "core/timeconstants.h"
+#include "core/settings.h"
 #include "settings/playlistsettingspage.h"
 #include "parserbase.h"
 #include "m3uparser.h"
@@ -125,7 +125,7 @@ void M3UParser::Save(const SongList &songs, QIODevice *device, const QDir &dir, 
 
   device->write("#EXTM3U\n");
 
-  QSettings s;
+  Settings s;
   s.beginGroup(PlaylistSettingsPage::kSettingsGroup);
   bool write_metadata = s.value("write_metadata", true).toBool();
   s.endGroup();

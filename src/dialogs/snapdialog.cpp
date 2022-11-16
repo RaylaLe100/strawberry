@@ -26,12 +26,12 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QKeySequence>
-#include <QSettings>
 
 #include "snapdialog.h"
 #include "ui_snapdialog.h"
 
 #include "core/mainwindow.h"
+#include "core/settings.h"
 
 SnapDialog::SnapDialog(QWidget *parent) : QDialog(parent), ui_(new Ui_SnapDialog) {
 
@@ -98,7 +98,7 @@ SnapDialog::~SnapDialog() { delete ui_; }
 
 void SnapDialog::DoNotShowMessageAgain() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(MainWindow::kSettingsGroup);
   s.setValue("ignore_snap", ui_->checkbox_do_not_show_message_again->isChecked());
   s.endGroup();

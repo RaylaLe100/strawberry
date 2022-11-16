@@ -35,10 +35,10 @@
 #include <QByteArray>
 #include <QString>
 #include <QUrl>
-#include <QSettings>
 
 #include "core/application.h"
 #include "core/logging.h"
+#include "core/settings.h"
 
 #include "moodbarpipeline.h"
 
@@ -72,7 +72,7 @@ MoodbarLoader::~MoodbarLoader() {
 
 void MoodbarLoader::ReloadSettings() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(MoodbarSettingsPage::kSettingsGroup);
   save_ = s.value("save", false).toBool();
   s.endGroup();

@@ -39,12 +39,12 @@
 #include <QLabel>
 #include <QRadioButton>
 #include <QSpinBox>
-#include <QSettings>
 #include <QMessageBox>
 
 #include "core/application.h"
 #include "core/iconloader.h"
 #include "core/utilities.h"
+#include "core/settings.h"
 #include "collection/collection.h"
 #include "collection/collectionmodel.h"
 #include "collection/collectiondirectorymodel.h"
@@ -116,7 +116,7 @@ CollectionSettingsPage::~CollectionSettingsPage() { delete ui_; }
 
 void CollectionSettingsPage::Add() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
 
   QString path(s.value("last_path", QStandardPaths::writableLocation(QStandardPaths::MusicLocation)).toString());
@@ -177,7 +177,7 @@ void CollectionSettingsPage::Load() {
     QObject::connect(ui_->list->selectionModel(), &QItemSelectionModel::currentRowChanged, this, &CollectionSettingsPage::CurrentRowChanged);
   }
 
-  QSettings s;
+  Settings s;
 
   s.beginGroup(kSettingsGroup);
   ui_->auto_open->setChecked(s.value("auto_open", true).toBool());
@@ -249,13 +249,13 @@ void CollectionSettingsPage::Load() {
   ui_->disk_cache_in_use->setText((dialog()->app()->collection_model()->icon_cache_disk_size() == 0 ? "empty" : Utilities::PrettySize(dialog()->app()->collection_model()->icon_cache_disk_size())));
 
   Init(ui_->layout_collectionsettingspage->parentWidget());
-  if (!QSettings().childGroups().contains(kSettingsGroup)) set_changed();
+  if (!Settings().childGroups().contains(kSettingsGroup)) set_changed();
 
 }
 
 void CollectionSettingsPage::Save() {
 
-  QSettings s;
+  Settings s;
 
   s.beginGroup(kSettingsGroup);
   s.setValue("auto_open", ui_->auto_open->isChecked());

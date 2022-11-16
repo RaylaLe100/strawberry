@@ -24,7 +24,8 @@
 #include <QString>
 #include <QCheckBox>
 #include <QSlider>
-#include <QSettings>
+
+#include "core/settings.h"
 
 #include "transcoderoptionsinterface.h"
 #include "transcoderoptionsvorbis.h"
@@ -42,7 +43,7 @@ TranscoderOptionsVorbis::~TranscoderOptionsVorbis() {
 
 void TranscoderOptionsVorbis::Load() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup + settings_postfix_);
 
   int bitrate = s.value("bitrate", -1).toInt();
@@ -66,7 +67,7 @@ void TranscoderOptionsVorbis::Load() {
 
 void TranscoderOptionsVorbis::Save() {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup + settings_postfix_);
 
   int bitrate = ui_->bitrate_slider->value();

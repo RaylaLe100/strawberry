@@ -36,11 +36,11 @@
 #include <QTimeLine>
 #include <QAction>
 #include <QActionGroup>
-#include <QSettings>
 #include <QtEvents>
 
 #include "core/application.h"
 #include "core/imageutils.h"
+#include "core/settings.h"
 #include "covermanager/albumcoverchoicecontroller.h"
 #include "playingwidget.h"
 
@@ -84,7 +84,7 @@ PlayingWidget::PlayingWidget(QWidget *parent)
   SetHeight(0);
 
   // Load settings
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   mode_ = Mode(s.value("mode", LargeSongDetails).toInt());
   fit_width_ = s.value("fit_cover_width", false).toBool();
@@ -136,7 +136,7 @@ void PlayingWidget::Init(Application *app, AlbumCoverChoiceController *album_cov
 
   above_statusbar_action_ = menu_->addAction(tr("Show above status bar"));
   above_statusbar_action_->setCheckable(true);
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   above_statusbar_action_->setChecked(s.value("above_status_bar", false).toBool());
   s.endGroup();
@@ -226,7 +226,7 @@ void PlayingWidget::SetMode(const int mode) {
   UpdateDetailsText();
   update();
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("mode", mode_);
   s.endGroup();
@@ -239,7 +239,7 @@ void PlayingWidget::FitCoverWidth(const bool fit) {
   UpdateHeight();
   update();
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("fit_cover_width", fit_width_);
   s.endGroup();
@@ -248,7 +248,7 @@ void PlayingWidget::FitCoverWidth(const bool fit) {
 
 void PlayingWidget::ShowAboveStatusBar(const bool above) {
 
-  QSettings s;
+  Settings s;
   s.beginGroup(kSettingsGroup);
   s.setValue("above_status_bar", above);
   s.endGroup();

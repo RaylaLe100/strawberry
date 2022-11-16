@@ -20,13 +20,14 @@
 #include "addstreamdialog.h"
 #include "ui_addstreamdialog.h"
 
-#include <QSettings>
 #include <QUrl>
 #include <QLabel>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QDialogButtonBox>
 #include <QShowEvent>
+
+#include "core/settings.h"
 
 AddStreamDialog::AddStreamDialog(QWidget *parent) : QDialog(parent), ui_(new Ui_AddStreamDialog) {
 
